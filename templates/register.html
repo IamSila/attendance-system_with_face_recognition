@@ -7,12 +7,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
 </head>
 <body>
     <section class="section-1">
-        <div class="container-login">
-            <h1>Login</h1>
+        <div class="container-register">
+            <h1>Register</h1>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.tags == 'error' %}
@@ -22,21 +22,41 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <p>Welcome! Login to access all the features</p>
+            <p>Welcome! Register with your details</p>
             <form action="" method="POST">
                 {% csrf_token %}
-                <label for="username">Username:</label>
+                <div class="names">
+                    <label for="firstName">First Name</label>
+                    <br>
+                    <input type="text" name="firstName" id="" placeholder="John" required>
+
+                    <label for="lastName">Last Name</label>
+                    <br>
+                    <input type="text" name="lastName" id="" placeholder="Doe" required>
+                </div>
+
+                <label for="registrationNumber">Registration number</label>
+                <input type="text" name="registrationNumber" id="" placeholder="a12-3322-1990" required>
                 <br>
-                <input type="text" name="username" id="" placeholder="username">
-                <br>
-                <label for="password">Password:</label>
-                <br>
-                <input type="password" name="password" id="" placeholder="password">
-                <br>
-                <button type="submit">LOGIN</button>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="" placeholder="abc@gmail.com" required>
+
+                <div class="passwords">
+                    <label for="username">Password:</label>
+                    <br>
+                    <input type="text" name="password" id="" placeholder="password" required>
+
+                    <label for="password">Confirm Password:</label>
+                    <br>
+                    <input type="password" name="confirmPassword" id="" placeholder="confirm password" required>
+                </div>
+                <div class="register-btn">
+                    <button type="submit">REGISTER</button>
+                </div>
+                
             </form>
             <div class="login-footer">
-                <p>Not User? <a href="">Sign Up</a></p>
+                <p>Already a User? <a href="{% url 'login' %}">Login</a></p>
 
                 <a href="">Forgot Your password?</a>
             </div>

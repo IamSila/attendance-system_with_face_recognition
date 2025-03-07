@@ -360,61 +360,100 @@
   }
 
   /* login container */
-  .container-login {
+.container-register {
     display: flex;
-    justify-content: flex-start;
-    /* align-items: center; */
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     border: 1px white solid;
     box-shadow: 20px 20px 30px rgb(241, 237, 237);
     border-radius: 0;
     position: absolute;
-    top: 20vh;
-    left: 33.33%;
+    top: 6vh;
+    left: 25%;
     background-color: white;
-    width: 30%;
+    width: 50%;
   }
 
-  .container-login h1 {
+.container-register h1 {
     color: rgb(35, 91, 243);
     margin-left: 30px;
   }
 
-  .container-login p {
+.container-register p {
     color: rgb(117, 117, 116);
     /* text-align: left; */
     margin-left: 30px;
+    font-size: 20px;
   }
 
-  .section-1 .container-login form label {
-    font-size: 15px;
+  .section-1 .container-register form label {
+    font-size: 20px;
     font-weight: 400;
     color: rgb(117, 117, 116);
-    margin-left: 30px;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
     
   }
 
-
-  .section-1 .container-login form input {
-    width: 80%;
-    height: 30px;
-    margin-bottom: 10px;
-    margin-left: 30px;
-    border-radius: 4px;
-    border: 1px gray solid;
-    padding: 5px;
-    background-color: white;
+  .section-1   .container-register form .names {
+    display: flex;
+    justify-content: space-between ;
+    width: 100%;
+    margin: 10px 0;
   }
 
-  .section-1 .container-login form input:focus {
+
+  .section-1   .container-register form .names label {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgb(117, 117, 116);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .section-1   .container-register form .passwords {
+    display: flex;
+    justify-content: space-between ;
+    /* align-items: center; */
+    /* margin: 5px; */
+  }
+
+  .section-1   .container-register form .passwords label {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgb(117, 117, 116);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .section-1   .container-register form input {
+    border-top-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 1px gray solid;
+    margin-bottom: 10px;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin: 10px 0;
+  }
+
+  .section-1   .container-register form .names input {
+    width: 30%;
+  }
+
+  .section-1   .container-register form .passwords input {
+    width: 30%;
+  }
+
+  .section-1 .container-register form input:focus {
     border-color: #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     /* transform: scale(1.05); */
   }
 
-  .section-1 .container-login form input::placeholder {
+  .section-1 .container-register form input::placeholder {
     color: #999; /* Light gray color */
     font-style: italic; /* Italic text */
     font-size: 14px; /* Font size */
@@ -422,7 +461,13 @@
     text-align: center;
   }
 
-  .section-1 .container-login form button {
+  .section-1   .container-register form .register-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-1 .container-register form button {
     background: rgb(35, 91, 243);
     color: white;
     border: 2px rgb(35, 91, 243) solid;
@@ -432,6 +477,7 @@
     width: 83%;
     /* height: 30px; */
     padding: 5px;
+    font-size: 25px;
     font-weight: 600;
     cursor: pointer;
 
@@ -439,13 +485,13 @@
 
 
 /* login footer */
-.section-1 .container-login .login-footer {
+.section-1 .container-register .login-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.section-1 .container-login .login-footer a {
+.section-1 .container-register .login-footer a {
     text-decoration: none;
     color: rgb(35, 91, 243);
     margin-right: 40px;

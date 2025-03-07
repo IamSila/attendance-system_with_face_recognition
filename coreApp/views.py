@@ -24,6 +24,10 @@ def login(request):
             redirect('login')
     return render(request, 'login.html')
 
+
+# register page view
+def register(request):
+    return render(request, 'register.html')
 # Calender / planning
 def Planning(request):
     tasks = Task.objects.all()
