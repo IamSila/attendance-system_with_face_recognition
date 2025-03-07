@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+        <section class="features">
+                <div class="feature-box">
+                    <img src="{% static 'images/features/attendance.png' %}" alt="attendance image">
+                    <h4>mark attendance</h4>
+                </div>
+
+                <div class="feature-box">
+                    <img src="{% static 'images/features/history1.png' %}" alt="">
+                    <h4>Attendance History</h4>
+                </div>
+
+                <div class="feature-box">
+                    <img src="{% static 'images/features/profile.png' %}" alt="">
+                    <h4>Profile</h4>
+                </div>
+
+                <div class="feature-box">
+                    <img src="{% static 'images/features/webcam_settings.png' %}" alt="">
+                    <h4>Camera Settings</h4>
+                </div>
+
+                <div class="feature-box">
+                    <img src="{% static 'images/features/lesson_planning.png' %}" alt="">
+                    <h4>Lesson Planning</h4>
+                </div>
+
+                <div class="feature-box">
+                    <img src="{% static 'images/features/allow.png' %}" alt="">
+                    <h4>Authorize User</h4>
+                </div>
+        </section>
+    </section>
+
+    {% endblock%}

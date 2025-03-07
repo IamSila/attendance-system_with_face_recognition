@@ -1,0 +1,54 @@
+/* styles.css */
+
+  .calendar {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    margin: 30px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  .calendar h1 i {
+    margin: 15px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  td {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 80px;
+    height: 80px;
+  }
+  
+  td:hover {
+    background-color: #f9f9f9;
+  }
+  
+  td.empty {
+    background-color: #f4f4f4;
+    cursor: default;
+  }
+  

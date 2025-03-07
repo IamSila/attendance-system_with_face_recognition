@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance system</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/planning.css' %}">
+    <!-- Load an icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <section class="header">
+        <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" class="logo" alt="logo"></a>
+
+        <div>
+            <ul class="navbar">
+                <li><a class="active" href="{% url 'home' %}">Home</a></li>
+                <!-- <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li> -->
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="">Register</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section-2">
+
+        <section class="side-nav">
+            <div>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i></i>Dashboard</a></li>
+                    <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
+                    <li><a href="#"><i class="fa-solid fa-people-roof"></i>Attendance Record</a></li>
+                    <li><a href=""><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                </ul>
+    
+            </div>
+        </section>
+    
+        <section class="features">
+                
+            {% block content %}
+
+            {% endblock %}
+
+        </section>
+    </section>
+
+
+    <script src="{% static 'js/planning.js' %}"></script>
+</body>
+</html>
