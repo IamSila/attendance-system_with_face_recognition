@@ -10,22 +10,37 @@
     <link rel="stylesheet" href="{% static 'css/planning.css' %}">
     <!-- Load an icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 <body>
     <section class="header">
         <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" class="logo" alt="logo"></a>
-
-        <div>
-            <ul class="navbar">
-                <li><a class="active" href="{% url 'home' %}">Home</a></li>
-                <!-- <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li> -->
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </div>
+        {% if user.is_authenticated %}
+            <div>
+                <ul class="navbar">
+                    <li><a class="active" href="{% url 'home' %}">Home</a></li>
+                    <!-- <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li> -->
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <!-- <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li> -->
+                </ul>
+            </div>
+        {% else %}
+            <div>
+                <ul class="navbar">
+                    <li><a class="active" href="{% url 'home' %}">Home</a></li>
+                    <!-- <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li> -->
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                </ul>
+            </div>
+        {% endif %}
     </section>
 
     <section class="section-2">
@@ -37,7 +52,9 @@
                     <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
                     <li><a href="#"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
                     <li><a href="#"><i class="fa-solid fa-people-roof"></i>Attendance Record</a></li>
-                    <li><a href=""><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                    {% endif %}
                 </ul>
     
             </div>
