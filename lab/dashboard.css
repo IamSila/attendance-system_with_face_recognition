@@ -1,0 +1,177 @@
+#dash-section {
+    background-color: whitesmoke;
+    height: 200vh;
+}
+#dash-section .summary-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin: 5px;
+    margin-left: 20px;
+}
+
+#dash-section .summary-heading h2 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.5rem;
+    text-align: left;
+}
+
+#dash-section .summary-heading select {
+    padding: 5px 5px;
+    border: 1px solid rgb(29, 29, 177);
+    border-radius: 5px;
+}
+
+#dash-section .summary-container {
+    display: flex;
+    justify-content: space-evenly;
+    background-image: linear-gradient(to top, rgb(11, 132, 189), rgb(102, 53, 182));
+    border-radius: 10px;
+    width: 50%;
+    height: 25vh;
+    margin-left: 20px;
+}
+
+#dash-section .summary-container .summary-box h2 {
+    font-size: 16px;
+    color: #fff;
+}
+
+#dash-section .summary-container .summary-box p {
+    font-size: 16px;
+    color: whitesmoke;
+}
+
+#dash-section .summary-container .summary-box .summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px red solid;
+    position: relative;
+
+}
+
+#dash-section .summary-container .summary-box .summary img {
+    background-color: white;
+    padding: 5px 5px;
+    border-radius: 10px;
+    color: white
+}
+
+#dash-section .summary-container .summary-box .summary span {
+    font-weight: 600;
+    font-size: 40px;
+}
+
+#dash-section .summary-container .summary-box .summary p {
+    background-color: white;
+    color: black;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 10px;
+}
+
+/* schedule section */
+#dash-section .schedule-container {
+    width: 50%;
+    /* border: 1px green solid; */
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+#dash-section .schedule-container .schedule-heading {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.5rem;
+    text-align: left;
+}
+#dash-section .schedule-container .calender-events {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    align-items: center;
+    /* border: 1px solid yellow; */
+    border-radius: 8px;
+    box-shadow: 0 0 1px 3px rgb(241, 238, 238);
+}
+
+#monthName:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#nextMonthBtn:hover, #prevMonthBtn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* #dash-section #calender {
+    height: 500px;
+    width: 600px;
+    margin: 10px;
+    border-radius: 8px;
+} */
+
+
+#dash-section .schedule-container .calender-events .events .event-box {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    flex-direction: column;
+    border: 1px solid rgb(102, 53, 182);
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: 100px;
+    margin-bottom: 40px;
+    background-image: linear-gradient(to right, rgb(15, 10, 90), rgb(11, 132, 189));
+}
+
+#dash-section .schedule-container .calender-events .events .event-box-child {
+    border: 1px solid rgb(11, 132, 189);
+    background-image: linear-gradient(white, white);
+}
+
+
+#dash-section .schedule-container .calender-events .events .event-box .event-name {
+    color: #fff;
+    font-size: 16px;
+    margin: 10px;
+    margin-left: 0;
+    margin-bottom: 20px;
+}
+
+#dash-section .schedule-container .calender-events .events .event-box-child .event-name {
+    color: rgb(15, 10, 90);
+}
+
+#dash-section .schedule-container .calender-events .events .event-box p {
+    color: #fff;
+    font-size: 16px;
+    margin: 0;
+}
+
+#dash-section .schedule-container .calender-events .events .event-box-child  p {
+    color: rgb(11, 12, 51);
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+}
+
+#dash-section .schedule-container .calender-events .events .event-box .event-time {
+    display: flex;
+    justify-content: space-between;
+}
+
+#dash-section .schedule-container .calender-events .calender {
+    width: 30%;
+}

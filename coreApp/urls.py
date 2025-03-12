@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/', views.Logout, name="logout"),
     path('api/tasks/', views.get_tasks, name="get_tasks"),
     path('planning/', views.Planning, name="planning"),
+    path('dashboard/', views.Dashboard, name="dashboard"),
 ]

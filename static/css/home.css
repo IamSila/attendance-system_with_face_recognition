@@ -22,6 +22,7 @@
 
 body {
   margin: 0;
+  
 }
 
 /**
@@ -430,6 +431,13 @@ p {
   color: #ffffff;
   transition: 0.3s ease;
   
+}
+
+.header .navbar .fa-bell {
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
 }
 
 .header .navbar li a:hover,

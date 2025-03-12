@@ -91,3 +91,7 @@ def get_tasks(request):
 
 def Planning(request):
     return render(request, 'planning2.html')
+
+
+def Dashboard(request):
+    return render(request, 'dashboard.html')
