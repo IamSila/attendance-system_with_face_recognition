@@ -1,3 +1,100 @@
+#section-heading {
+    position: relative;
+}
+
+#section-heading .heading-container {
+    display: flex;
+    justify-items: space-evenly;
+    align-items: center;
+    
+    /* gap: 50px; */
+}
+
+#section-heading .heading-container .left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+}
+
+#section-heading .heading-container .left input {
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 0 1px 2px rgb(211, 207, 207);
+    transition: 0.5s;
+}
+
+#section-heading .heading-container .left input[type="search"] {
+    margin-right: 20px;
+}
+
+#section-heading .heading-container .left input[type="submit"] {
+    background-color: rgb(11, 132, 189);
+    color: white;
+    cursor: pointer;
+    
+}
+
+#section-heading .heading-container .left input[type="submit"]:hover {
+    transform: scale(1.15);
+}
+
+#section-heading .heading-container .left input[type="search"]:focus {
+    
+    outline: 3px solid rgb(11, 132, 189);
+    transform: scale(1.15);
+}
+
+#section-heading .heading-container .right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    position: absolute;
+    right: 40px;
+}
+
+#section-heading .heading-container .right a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#section-heading .heading-container .right a.logout {
+    color: #fff;
+    background-image: linear-gradient(to top, rgb(11, 132, 189), rgb(102, 53, 182));
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    transition: 1s;
+}
+
+#section-heading .heading-container .right a.logout:hover {
+    transform: scale(1.15);
+}
+
+#section-heading .heading-container .right h3 {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+}
+
+#section-heading .heading-container .right img {
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 0 1px 1px rgb(211, 207, 207);
+    border-radius: 50%;
+    padding: 3px;
+}
+
+
+
+
+
+
+
 #dash-section {
     background-color: whitesmoke;
     height: 100%;
@@ -21,21 +118,21 @@
 }
 
 #dash-section .side-container {
-    height: 100%;
-    /* width: 100%; */
-    border: 1px red solid;
+    height: 94%;
+    width: 100%;
     background-image: linear-gradient(to top, rgb(15, 10, 90) 40%, rgb(102, 53, 182), rgb(15, 10, 90));
     border-radius: 10px;
+    margin-top: 30px;
     
 }
 
 #dash-section .side-container .side-bar {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     flex-direction: column;
     margin-top: 150px;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
 
 }
 
@@ -43,9 +140,8 @@
     list-style: none;
     font-size: 15px;
     padding: 5px;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     margin-bottom: 40px;
-    margin-right: 60px;
     text-align: center;
     
     
@@ -212,11 +308,16 @@
     margin-right: 100px;
     margin-bottom: 40px;
     background-image: linear-gradient(to right, rgb(15, 10, 90), rgb(11, 132, 189));
+    transition: 1s;
 }
 
 #dash-section .schedule-container .calender-events .events .event-box-child {
     border: 1px solid rgb(11, 132, 189);
     background-image: linear-gradient(white, white);
+}
+
+#dash-section .schedule-container .calender-events .events .event-box:hover {
+    transform: scale(1.15);
 }
 
 
@@ -264,6 +365,7 @@
     width: 100%;
     gap: 20px;
     background-color: #fff;
+    border-radius: 8px;
     
 }
 
@@ -329,6 +431,11 @@
     border-radius: 50%;
     color: rgb(11, 132, 189);
     text-align: center;
+    transition: 1s;
+}
+
+#dash-section .teacher-events-container .teacher-box .fa-solid:hover {
+    transform: scale(1.15);
 }
 
 #dash-section .teacher-events-container .events {
@@ -352,6 +459,7 @@
     position: relative;
     padding-right: 10px;
     width: 100%;
+    margin-bottom: 5px;
 
 
 }
