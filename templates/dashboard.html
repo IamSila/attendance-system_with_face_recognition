@@ -15,19 +15,21 @@
     <section id="section-heading">
         <div class="heading-container">
             <div class="left">
+                <a href="{% url 'home' %}" class="logo"><img src="{% static '/images/logo.png' %}" alt=""></a>
                 <h2>Student Dashboard, Welcome.</h2>
                 <form action="" method="post">
                     <input type="search" name="" id="" placeholder="Search">
                     <input type="submit" value="search">
                 </form>
             </div>
-    
-            <div class="right">
-                <a href=""><i class="fa-solid fa-bell"></i></a>
-                <img src="{% static '/images/dashboard/profile.png' %}" alt="">
-                <h3>Sila Mulingi</h3>
-                <a href="" class="logout">logout</a>
-            </div>
+            {% if user.is_authenticated %}
+                <div class="right">
+                    <a href=""><i class="fa-solid fa-bell"></i></a>
+                    <img src="{% static '/images/dashboard/profile.png' %}" alt="">
+                    <h3>{{ user.username }}</h3>
+                    <a href="{% url 'logout' %}" class="logout">logout</a>
+                </div>
+            {% endif %}
         </div>
 
     </section>

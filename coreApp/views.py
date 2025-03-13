@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #The home page view
@@ -76,6 +77,7 @@ def Logout(request):
     return redirect('home')
 
 # Calender / planning
+@login_required
 def get_tasks(request):
     tasks = Task.objects.all()
     tasks_list = []
@@ -88,10 +90,10 @@ def get_tasks(request):
             'end': task.end_time.isoformat(),
         })
     return JsonResponse(tasks_list, safe=False)
-
+@login_required
 def Planning(request):
     return render(request, 'planning2.html')
 
-
+@login_required
 def Dashboard(request):
     return render(request, 'dashboard.html')

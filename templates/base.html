@@ -15,34 +15,33 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 <body>
-    <section class="header">
-        <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" class="logo" alt="logo"></a>
-        {% if user.is_authenticated %}
-            <div>
-                <ul class="navbar">
-                    <li><a class="active" href="{% url 'home' %}">Home</a></li>
-                    <!-- <li><a href="shop.html">Shop</a></li>
-                    <li><a href="blog.html">Blog</a></li> -->
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <i class="fa-regular fa-bell"></i>
-                    <!-- <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li> -->
-                </ul>
+
+    <section id="section-heading">
+        <div class="heading-container">
+            <div class="left">
+                <a href="{% url 'home' %}" class="logo"><img src="{% static '/images/logo.png' %}" alt=""></a>
+                <h2>Welcome.</h2>
+                <form action="" method="post">
+                    <input type="search" name="" id="" placeholder="Search">
+                    <input type="submit" value="search">
+                </form>
             </div>
-        {% else %}
-            <div>
-                <ul class="navbar">
-                    <li><a class="active" href="{% url 'home' %}">Home</a></li>
-                    <!-- <li><a href="shop.html">Shop</a></li>
-                    <li><a href="blog.html">Blog</a></li> -->
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
-                </ul>
+            {% if user.is_authenticated %}
+                <div class="right">
+                    <a href="" ><i class="fa-solid fa-bell"></i></a>
+                    <img src="{% static '/images/dashboard/profile.png' %}" alt="">
+                    <h3>{{ user.username }}</h3>
+                    <a href="{% url 'logout' %}" class="logout">logout</a>
+                </div>
+            {% else %}
+            <div class="right no-login">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
             </div>
-        {% endif %}
+            {% endif %}
+        </div>
+
     </section>
 
     <section class="section-2">
