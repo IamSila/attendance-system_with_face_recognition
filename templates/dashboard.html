@@ -1,24 +1,310 @@
-{% extends 'base.html' %}
 {% load static %}
 
 
-
-
-{% block content %}
-
-    <section id="dash-container">
-        <div class="summary">
-            <h4>Summary</h4>
-            <select name="" id="">
-                <option value="">Semester 1</option>
-                <option value="">Semester 2</option>
-            </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <section id="section-heading">
+        <div class="heading-container">
+            <div class="left">
+                <h2>Student Dashboard, Welcome.</h2>
+                <form action="" method="post">
+                    <input type="search" name="" id="" placeholder="Search">
+                    <input type="submit" value="search">
+                </form>
+            </div>
+    
+            <div class="right">
+                <a href=""><i class="fa-solid fa-bell"></i></a>
+                <img src="/lab/profile.png" alt="">
+                <h3>Sila Mulingi</h3>
+                <a href="" class="logout">logout</a>
+            </div>
         </div>
 
-        <div>
-            
-        </div>
     </section>
 
 
-{% endblock %}
+
+    <section id="dash-section">
+
+        <!-- start div-section-left -->
+        <div class="dash-section-left">
+            <div class="side-container">
+                <img src="/lab/webcam_settings(1).png" alt="">
+    
+                <div class="side-bar">
+                    <ul>
+                        <li><a href="">Dashboard</a></li>
+                        <li><a href="">Teachers</a></li>
+                        <li><a href="">My classes</a></li>
+                        <li><a href="">Schedule</a></li>
+                        <li><a href="">Messages</a></li>
+                        <li><a href="">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end div-section-left -->
+
+        <!-- start div-section-center -->
+        <div class="dash-section-center">
+            <div class="summary-heading">
+                <h2>Summary</h2>
+                <select name="" id="">
+                    <option value="">1st Semester</option>
+                    <option value="">2nd Semester</option>
+                </select>
+            </div>
+    
+            <div class="summary-container">
+                
+                <div class="summary-box">
+                    
+                    <h2>Attendance</h2>
+                    <div class="summary">
+                        <img src="dashboard/attendance.png" alt="">
+                        <h2><span>20</span>/20</h2>
+                        <p>100%</p>
+                    </div>
+                    <p>Great, you always attending class, keep it up</p>
+                </div>
+                <div class="summary-box">
+                    <h2>Homework</h2>
+                    <div class="summary">
+                        <img src="dashboard/homework.png" alt="">
+                        <h2><span>19</span>/20</h2>
+                        <p>100%</p>
+                    </div>
+                    <p>Don't forget about your next homework</p>
+                </div>
+                <div class="summary-box">
+                    <h2>Rating</h2>
+                    <div class="summary">
+                        <img src="dashboard/rating.png" alt="">
+                        <h2><span>85</span>/100</h2>
+                        <p>100%</p>
+                    </div>
+                    <p>Your progress is very good, keep it up</p>
+                </div>
+            </div>
+        
+    
+            <div class="schedule-container">
+                <div class="schedule-heading">
+                    <h2>My Schedule</h2>
+                </div>
+    
+                <div class="calender-events">
+                    <div>
+                        <div class="calendar-header" style="display: flex; justify-content: center; align-items: center; ">
+                            <button id="prevMonthBtn" style="border-radius: 4px; padding: 5px; margin: 5px; background-color: rgb(15, 10, 90); color: white; text-align: center; display: inline-block;">Prev</button>
+                            <center style="background-color: rgb(15, 10, 90); padding: 5px; font-size: 25px; border-radius: 8px; color: white;" id="monthName"></center>
+                            <button id="nextMonthBtn" style="border-radius: 4px; padding: 5px; margin: 5px; background-color: rgb(15, 10, 90); color: white; text-align: center; display: inline-block;">Next</button>
+                        </div>
+                        <div id="calendar" style="height: 400px; width: 400px; margin: 10px; border-radius: 2px; box-shadow: 0 0 1px 3px rgb(197, 194, 194);">
+                        </div>
+                    </div>
+                    
+                      
+                    <!-- <div id="calendar" style="height: 400px; width: 300px; margin: 10px; border-radius: 8px;"> </div> -->
+    
+    
+                
+    
+                    <div class="events">
+                        <div class="event-box">
+                            <h3 class="event-name">Natural Language Processing</h3>
+                            <div class="event-time">
+                                <p>15.09</p>
+                                <p>11.00am - 1.00pm</p>
+                            </div>
+                        </div>
+    
+                        <div class="event-box event-box-child">
+                            <h3 class="event-name">Artificial Intelligence</h3>
+                            <div class="event-time">
+                                <p>15.09</p>
+                                <p>11.00am - 1.00pm</p>
+                            </div>
+                        </div>
+    
+                        <div class="event-box event-box-child">
+                            <h3 class="event-name">Neural Networks</h3>
+                            <div class="event-time">
+                                <p>15.09</p>
+                                <p>13.00pm - 16.00pm</p>
+                            </div>
+                        </div>
+    
+                        <div class="event-box event-box-child">
+                            <h3 class="event-name">Software Project Management</h3>
+                            <div class="event-time">
+                                <p>15.09</p>
+                                <p>7.00am - 10.00am</p>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end div-section-center -->
+
+        <div class="dash-section-right">
+            <div class="teacher-events-container">
+                    <div class="teachers">
+                        <h2>My Teachers</h2>
+                        <div class="teacher-box">
+                            <img src="/lab/dashboard/teacher.jpg" alt="">
+                            <span><h2>Sila Mulingi</h2>
+                            <br>
+                            <p>Javascript and C</p></span>
+                            <a href="mailto:silamulingi@gmail.com"><i class="fa-solid fa-envelope-open-text"></i></a>
+                        </div>
+    
+                        <div class="teacher-box">
+                            <img src="/lab/dashboard/teacher.jpg" alt="">
+                            <span><h2>Sila Mulingi</h2>
+                            <br>
+                            <p>Javascript and C</p></span>
+                            <a href="mailto:silamulingi@gmail.com"><i class="fa-solid fa-envelope-open-text"></i></a>
+                        </div>
+    
+                        <div class="teacher-box">
+                            <img src="/lab/dashboard/teacher.jpg" alt="">
+                            <span><h2>Sila Mulingi</h2>
+                            <br>
+                            <p>Javascript and C</p></span>
+                            <a href="mailto:silamulingi@gmail.com"><i class="fa-solid fa-envelope-open-text"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="events">
+                        <h2>Up-Coming Events</h2>
+                        <div class="event-box">
+                            <div class="image">
+                                <img src="/lab/dashboard/homework.png" alt="">
+                            </div>
+
+                            <div class="title">
+                                <h2>Coding: what is it eaten with</h2>
+                                <div class="time">
+                                    <p>11.3.2025</p>
+                                    <p>14.00pm</p>
+                                    <a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-box">
+                            <div class="image">
+                                <img src="/lab/dashboard/homework.png" alt="">
+                            </div>
+
+                            <div class="title">
+                                <h2>Coding: what is it eaten with</h2>
+                                <div class="time">
+                                    <p>11.3.2025</p>
+                                    <p>14.00pm</p>
+                                    <a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-box">
+                            <div class="image">
+                                <img src="/lab/dashboard/homework.png" alt="">
+                            </div>
+
+                            <div class="title">
+                                <h2>Coding: what is it eaten with</h2>
+                                <div class="time">
+                                    <p>11.3.2025</p>
+                                    <p>14.00pm</p>
+                                    <a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-box">
+                            <div class="image">
+                                <img src="/lab/dashboard/homework.png" alt="">
+                            </div>
+
+                            <div class="title">
+                                <h2>Coding: what is it eaten with</h2>
+                                <div class="time">
+                                    <p>11.3.2025</p>
+                                    <p>14.00pm</p>
+                                    <a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        
+                        
+                    </div>
+            </div>
+
+        </div>
+
+
+
+        
+    </section>
+
+
+  <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+  <script>
+    const calendar = new tui.Calendar('#calendar', {
+      defaultView: 'month', // Default view is set to 'month'
+      useCreationPopup: true,
+      useDetailPopup: true,
+      calendars: [
+        {
+          id: 'cal1',
+          name: 'Personal',
+          backgroundColor: '#03bd9e',
+        },
+      ],
+    });
+
+    // Function to update the month name
+    const updateMonthName = () => {
+      const date = calendar.getDate();
+      const monthName = new Intl.DateTimeFormat('default', { month: 'long' }).format(date);
+      document.getElementById('monthName').textContent = monthName;
+    };
+
+    // Initial month name update
+    updateMonthName();
+
+    // Previous month button
+    document.getElementById('prevMonthBtn').addEventListener('click', () => {
+      calendar.prev();
+      updateMonthName();
+    });
+
+    // Next month button
+    document.getElementById('nextMonthBtn').addEventListener('click', () => {
+      calendar.next();
+      updateMonthName();
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
