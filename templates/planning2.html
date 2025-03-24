@@ -1,12 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Task Calendar</title>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/planning2.css' %}">
+    {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 <body>
-    <h1>Task Calendar</h1>
+    {% block content %}
+    <center><h1>Task Calendar</h1></center>
     <div id="calendar"></div>
 
     <script>
@@ -25,5 +33,6 @@
             calendar.render();
         });
     </script>
+    {%endblock content %}
 </body>
 </html>

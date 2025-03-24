@@ -1,0 +1,122 @@
+ /* Reset default margins and padding */
+ /* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding: 20px;
+} */
+
+.content-section  {
+    width: 75%;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 90vh;
+    position: absolute;
+    top: 80px;
+    left: 300px;
+}
+
+/* Main profile container */
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* Profile header section */
+.profile-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-name {
+    flex: 1;
+}
+
+.profile-name h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.profile-name p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Personal information section */
+.section-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.info-group {
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.info-label {
+    width: 120px;
+    color: #666;
+    font-size: 14px;
+}
+
+.info-value {
+    flex: 1;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Bio section */
+.bio-section {
+    margin-bottom: 20px;
+}
+
+/* Address section */
+.address-section {
+    margin-bottom: 30px;
+}
+
+/* Edit button */
+.edit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    margin-left: auto;
+}
+
+.edit-button:hover {
+    background-color: #45a049;
+}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css%}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock css %}
+
+
+{% block content%}
+   
+    <div class="profile-container">
+        <!-- Profile Header Section -->
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <div class="profile-info">
+                <div class="profile-name">
+                    <h2>Refiqur Rahman</h2>
+                    <p>Team Manager</p>
+                    <p>Leeds, United Kingdom</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Information Section -->
+        <h2 class="section-title">Personal Information</h2>
+        <div class="info-group">
+            <div class="info-row">
+                <div class="info-label">First Name</div>
+                <div class="info-label">Last Name</div>
+            </div>
+            <div class="info-row">
+                <div class="info-value">Refiqur</div>
+                <div class="info-value">Rahman</div>
+            </div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-row">
+                <div class="info-label">Email address</div>
+                <div class="info-label">Phone</div>
+            </div>
+            <div class="info-row">
+                <div class="info-value">rafiqurrahman51@gmail.com</div>
+                <div class="info-value">+09 345 346 46</div>
+            </div>
+        </div>
+
+        <!-- Bio Section -->
+        <div class="bio-section">
+            <div class="info-row">
+                <div class="info-label">Bio</div>
+            </div>
+            <div class="info-row">
+                <div class="info-value">Team Manager</div>
+            </div>
+        </div>
+
+        <!-- Address Section -->
+        <h2 class="section-title">Address</h2>
+        <div class="address-section">
+            <div class="info-group">
+                <div class="info-row">
+                    <div class="info-label">Country</div>
+                    <div class="info-label">City/State</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-value">United Kingdom</div>
+                    <div class="info-value">Leeds, East London</div>
+                </div>
+            </div>
+
+            <div class="info-group">
+                <div class="info-row">
+                    <div class="info-label">Postal Code</div>
+                    <div class="info-label">TAX ID</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-value">ERT 2354</div>
+                    <div class="info-value">AS:45645756</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Button -->
+        <button class="edit-button">Edit</button>
+    </div>
+
+{% endblock content %}

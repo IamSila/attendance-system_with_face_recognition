@@ -895,8 +895,8 @@
 }
 
 #dash-section .teacher-events-container .events .event-box .image img {
-    width: 60px;
-    height: 60px;
+    /* width: 50px; */
+    height: 40px;
     /* border-radius: 50%; */
     padding: 0;
     
@@ -925,3 +925,185 @@
     align-items: center;
 }
 
+
+
+
+/*
+    handling responsiveness
+*/
+
+/* Existing CSS code remains unchanged until the end */
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    #section-heading .heading-container .left {
+        width: 60%;
+    }
+
+    #section-heading .heading-container .right {
+        width: 30%;
+    }
+
+    #dash-section .dash-section-left {
+        width: 25%;
+    }
+
+    #dash-section .dash-section-center {
+        width: 45%;
+    }
+
+    .dash-section-right {
+        width: 25%;
+    }
+}
+
+@media (max-width: 992px) {
+    #section-heading .heading-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #section-heading .heading-container .left {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #section-heading .heading-container .right {
+        width: 100%;
+        position: static;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    #dash-section {
+        flex-direction: column;
+    }
+
+    #dash-section .dash-section-left,
+    #dash-section .dash-section-center,
+    .dash-section-right {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    #dash-section .summary-container {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+    }
+
+    #dash-section .summary-container .summary-box {
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    #dash-section .summary-container .summary-box .summary {
+        border-right: none;
+        border-bottom: 1px solid white;
+        padding-bottom: 20px;
+    }
+
+    #dash-section .schedule-container .calender-events {
+        flex-direction: column;
+    }
+
+    #dash-section .schedule-container .calender-events .events {
+        width: 100%;
+    }
+
+    #dash-section .schedule-container .calender-events .calender {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #dash-section .teacher-events-container {
+        flex-direction: column;
+    }
+
+    #dash-section .teacher-events-container .teachers,
+    #dash-section .teacher-events-container .events {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    #section-heading .heading-container .left input[type="search"] {
+        width: 60%;
+    }
+
+    #section-heading .heading-container .left input[type="submit"] {
+        width: 30%;
+    }
+
+    #dash-section .summary-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #dash-section .summary-heading select {
+        margin-top: 10px;
+    }
+
+    #dash-section .schedule-container .calender-events .events .event-box {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #dash-section .teacher-events-container .teacher-box img {
+        margin-bottom: 10px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box .fa-solid {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    #section-heading .heading-container .left input[type="search"] {
+        width: 50%;
+    }
+
+    #section-heading .heading-container .left input[type="submit"] {
+        width: 40%;
+    }
+
+    #dash-section .summary-container .summary-box .summary span {
+        font-size: 30px;
+        margin-left: 20px;
+    }
+
+    #dash-section .summary-container .summary-box .summary p {
+        font-size: 8px;
+        top: 10px;
+        right: 10px;
+    }
+
+    #dash-section .schedule-container .calender-events .events .event-box {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box span h2 {
+        font-size: 14px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box span p {
+        font-size: 12px;
+    }
+
+    #dash-section .teacher-events-container .teacher-box .fa-solid {
+        font-size: 20px;
+        padding: 5px;
+    }
+}

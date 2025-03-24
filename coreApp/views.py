@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 def Home(request):
     return render(request, 'home.html')
 
+def Base(request):
+    return render(request, 'base.html')
+
 
 # register page view
 def Register(request):
@@ -97,3 +100,7 @@ def Planning(request):
 @login_required
 def Dashboard(request):
     return render(request, 'dashboard.html')
+
+@login_required
+def Profile(request):
+    return render(request, 'profile.html')

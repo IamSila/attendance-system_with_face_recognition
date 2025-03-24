@@ -1,3 +1,14 @@
-#calender {
-    width: 100%;
+.content-section  {
+    width: 75%;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 90vh;
+    position: absolute;
+    top: 80px;
+    left: 300px;
+}
+
+
+.content-section #calender {
+    border: red solid 2px;
 }
