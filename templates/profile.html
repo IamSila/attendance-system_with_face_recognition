@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css%}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-{% endblock css %}
 
-
-{% block content%}
+{% block content %}
    
     <div class="profile-container">
         <!-- Profile Header Section -->
@@ -22,42 +18,48 @@
         </div>
 
         <!-- Personal Information Section -->
-        <h2 class="section-title">Personal Information</h2>
-        <div class="info-group">
-            <div class="info-row">
-                <div class="info-label">First Name</div>
-                <div class="info-label">Last Name</div>
+        <div class="personal-info">
+            <h2 class="section-title">Personal Information</h2>
+            <div class="info-group">
+                <div class="info-row">
+                    <div class="info-label">First Name</div>
+                    <div class="info-label">Last Name</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-value">Refiqur</div>
+                    <div class="info-value">Rahman</div>
+                </div>
             </div>
-            <div class="info-row">
-                <div class="info-value">Refiqur</div>
-                <div class="info-value">Rahman</div>
-            </div>
-        </div>
 
-        <div class="info-group">
-            <div class="info-row">
-                <div class="info-label">Email address</div>
+            <div class="info-group">
+                <div class="info-row">
+                    <div class="info-label">Email address</div>
                 <div class="info-label">Phone</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-value">rafiqurrahman51@gmail.com</div>
+                    <div class="info-value">+09 345 346 46</div>
+                </div>
             </div>
-            <div class="info-row">
-                <div class="info-value">rafiqurrahman51@gmail.com</div>
-                <div class="info-value">+09 345 346 46</div>
+
+            <!-- Bio Section -->
+            <div class="bio-section">
+                <div class="info-row">
+                    <div class="info-label">Bio</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-value">Team Manager</div>
+                </div>
             </div>
         </div>
 
-        <!-- Bio Section -->
-        <div class="bio-section">
-            <div class="info-row">
-                <div class="info-label">Bio</div>
-            </div>
-            <div class="info-row">
-                <div class="info-value">Team Manager</div>
-            </div>
-        </div>
+        
 
         <!-- Address Section -->
-        <h2 class="section-title">Address</h2>
+        
         <div class="address-section">
+            <h2 class="section-title">Address</h2>
             <div class="info-group">
                 <div class="info-row">
                     <div class="info-label">Country</div>

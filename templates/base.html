@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance system</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    
     {% block css %}
     {% endblock css %}
     
@@ -18,57 +20,59 @@
 </head>
 <body>
 
-    <section id="section-heading">
-        <div class="heading-container">
-            <div class="left">
-                <a href="{% url 'home' %}" class="logo"><img src="{% static '/images/logo.png' %}" alt=""></a>
-                <h2>Welcome.</h2>
-                <form action="" method="post">
-                    <input type="search" name="" id="" placeholder="Search">
-                    <input type="submit" value="search">
-                </form>
-            </div>
-            {% if user.is_authenticated %}
-                <div class="right">
-                    <a href="" ><i class="fa-solid fa-bell"></i></a>
-                    <img src="{% static '/images/dashboard/profile.png' %}" alt="">
-                    <h3>{{ user.username }}</h3>
-                    <a href="{% url 'logout' %}" class="logout">logout</a>
+    <section id="body-section">
+        <section id="section-heading">
+            <div class="heading-container">
+                <div class="left">
+                    <a href="{% url 'home' %}" class="logo"><img src="{% static '/images/logo.png' %}" alt=""></a>
+                    <h2>Welcome.</h2>
+                    <form action="" method="post">
+                        <input type="search" name="" id="" placeholder="Search">
+                        <input type="submit" value="search">
+                    </form>
                 </div>
-            {% else %}
-            <div class="right no-login">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
+                {% if user.is_authenticated %}
+                    <div class="right">
+                        <a href="" ><i class="fa-solid fa-bell"></i></a>
+                        <img src="{% static '/images/dashboard/profile.png' %}" alt="">
+                        <h3>{{ user.username }}</h3>
+                        <a href="{% url 'logout' %}" class="logout">logout</a>
+                    </div>
+                {% else %}
+                <div class="right no-login">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-
-    </section>
-
-    <section class="section-2">
-
-        <section class="side-nav">
-            <div>
-                <ul>
-                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
-                    <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
-                    <li><a href="{% url 'profile' %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
-                    <li><a href="#"><i class="fa-solid fa-people-roof"></i>Attendance Record</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
-                    {% endif %}
-                </ul>
     
-            </div>
         </section>
-
-        <section class="content-section">       
-            {% block content %}
-
-            {% endblock %}
+    
+        <section class="section-2">
+    
+            <section class="side-nav">
+                <div>
+                    <ul>
+                        <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
+                        <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
+                        <li><a href="{% url 'profile' %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
+                        <li><a href="#"><i class="fa-solid fa-people-roof"></i>Attendance Record</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                        {% endif %}
+                    </ul>
+        
+                </div>
+            </section>
+    
+            <section class="features">       
+                {% block content %}
+    
+                {% endblock %}
+            </section>
+    
         </section>
-
     </section>
 
 
