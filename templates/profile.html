@@ -8,13 +8,13 @@
         <!-- Profile Header Section -->
         <div class="profile-header">
             <h1>My Profile</h1>
-            <div class="profile-info">
-                <div class="profile-name">
-                    <h2>Refiqur Rahman</h2>
-                    <p>Team Manager</p>
-                    <p>Leeds, United Kingdom</p>
+                <div class="profile-info">
+                    <div class="profile-name">
+                        <h2>Sila Mulingi</h2>
+                        <p>Barchelor of Science (Computer Science)</p>
+                        <p>Machakos</p>
+                    </div>
                 </div>
-            </div>
         </div>
 
         <!-- Personal Information Section -->
@@ -23,23 +23,23 @@
             <div class="info-group">
                 <div class="info-row">
                     <div class="info-label">First Name</div>
-                    <div class="info-label">Last Name</div>
+                    <div class="info-label right">Last Name</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-value">Refiqur</div>
-                    <div class="info-value">Rahman</div>
+                    <div class="info-value">Sila</div>
+                    <div class="info-value">Mulingi</div>
                 </div>
             </div>
 
             <div class="info-group">
                 <div class="info-row">
                     <div class="info-label">Email address</div>
-                <div class="info-label">Phone</div>
+                    <div class="info-label">Phone</div>
                 </div>
 
                 <div class="info-row">
-                    <div class="info-value">rafiqurrahman51@gmail.com</div>
-                    <div class="info-value">+09 345 346 46</div>
+                    <div class="info-value">silamulingi@gmail.com</div>
+                    <div class="info-value">0717486607</div>
                 </div>
             </div>
 
@@ -59,32 +59,32 @@
         <!-- Address Section -->
         
         <div class="address-section">
-            <h2 class="section-title">Address</h2>
+            <h2 class="section-title">Course Details</h2>
             <div class="info-group">
                 <div class="info-row">
-                    <div class="info-label">Country</div>
-                    <div class="info-label">City/State</div>
+                    <div class="info-label">School</div>
+                    <div class="info-label right">Course</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-value">United Kingdom</div>
-                    <div class="info-value">Leeds, East London</div>
+                    <div class="info-value">Engineering and Technology</div>
+                    <div class="info-value">Computer Science</div>
                 </div>
             </div>
 
             <div class="info-group">
                 <div class="info-row">
-                    <div class="info-label">Postal Code</div>
-                    <div class="info-label">TAX ID</div>
+                    <div class="info-label">Reg Number</div>
+                    <div class="info-label right">Year of Study</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-value">ERT 2354</div>
-                    <div class="info-value">AS:45645756</div>
+                    <div class="info-value">J17-0982-2020</div>
+                    <div class="info-value">4</div>
                 </div>
             </div>
         </div>
 
         <!-- Edit Button -->
-        <button class="edit-button">Edit</button>
+        <a href="{% url 'profileUpdate' %}" style="text-decoration: none;"><button class="edit-button">Edit</button></a>
     </div>
 
 {% endblock content %}

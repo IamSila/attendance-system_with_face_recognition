@@ -1,0 +1,13 @@
+.profile-container input {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid rgb(11, 132, 189);
+    /* margin-left: 5px; */
+    transition: 1s ease;
+}
+
+.profile-container input:focus {
+    border: none;
+    outline: 1px solid rgb(11, 132, 189);
+    transform: scale(1.05);
+}

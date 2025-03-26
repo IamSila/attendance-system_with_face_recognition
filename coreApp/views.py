@@ -107,4 +107,4 @@ def Profile(request):
 
 @login_required
 def UpdateProfile(request):
-    return render(request, 'updateProfile.html')
+    return render(request, 'profileUpdate.html')
