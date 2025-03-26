@@ -104,3 +104,7 @@ def Dashboard(request):
 @login_required
 def Profile(request):
     return render(request, 'profile.html')
+
+@login_required
+def UpdateProfile(request):
+    return render(request, 'updateProfile.html')

@@ -11,4 +11,5 @@ urlpatterns = [
     path('planning/', views.Planning, name="planning"),
     path('dashboard/', views.Dashboard, name="dashboard"),
     path('profile/', views.Profile, name="profile"),
+    path('updateProfile/', views.UpdateProfile, name='updateProfile'),
 ]
