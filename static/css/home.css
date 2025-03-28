@@ -609,7 +609,7 @@ p {
   position: absolute;
   top: 76px;
   left: 350px;
-  border: 5px solid greenyellow;
+  /* border: 5px solid greenyellow; */
   margin: 30px;
 }
 
