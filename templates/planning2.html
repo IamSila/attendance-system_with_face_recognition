@@ -13,27 +13,66 @@
     {% endblock css %}
 
     {% block content %}
-        <div class="calendar-container">
+    
+        <div class="calendar-container" >
             <center><h1>Task Calendar</h1></center>
-            <div id="calendar">
-                
-            </div>
+            <div id="calendar"></div>
+
+            <div id="eventDetails"></div>
         </div>
+
+        
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const calendarEl = document.getElementById('calendar');
+            
 
             // Initialize FullCalendar
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',  // Default view
                 events: '/api/tasks/',  // Fetch tasks from Django backend
+                /* eventClick: function(info) {
+                    // alert('Task: ' + info.event.title + '\nDescription: ' + info.event.extendedProps.description);
+                    displayDetails();
+                } */
                 eventClick: function(info) {
-                    alert('Task: ' + info.event.title + '\nDescription: ' + info.event.extendedProps.description);
+                    // alert('Task: ' + info.event.title + '\nDescription: ' + info.event.extendedProps.description);
+                      // Prevent default behavior (like following event.url if it exists)
+                    info.jsEvent.preventDefault();
+                    
+                    // Get the event details card element
+                    const eventDetailsCard = document.getElementById('eventDetails');
+                    
+                    // Populate the card with event information
+                    eventDetailsCard.innerHTML = `
+                        <div class="event-card">
+                            <h3>${info.event.title}</h3>
+                            ${info.event.extendedProps.description ? `<p><strong>Topic:</strong> ${info.event.extendedProps.description}</p>` : ''}
+                            <p><strong>Start:</strong> ${info.event.start.toLocaleString()}</p>
+                            ${info.event.end ? `<p><strong>End:</strong> ${info.event.end.toLocaleString()}</p>` : ''}
+                            ${info.event.extendedProps.location ? `<p><strong>Location:</strong> ${info.event.extendedProps.location}</p>` : ''}
+                            <!-- Add more fields as needed -->
+                        </div>
+                    `;
+                    
+                    // Show the card (assuming it's hidden by default)
+                    eventDetailsCard.style.display = 'block';
+                    
+                    // Optional: Close button functionality
+                    const closeButton = document.createElement('button');
+                    closeButton.textContent = 'Close';
+                    closeButton.onclick = function() {
+                        eventDetailsCard.style.display = 'none';
+                    };
+                    eventDetailsCard.querySelector('.event-card').appendChild(closeButton);
                 }
             });
 
             calendar.render();
+
+            
+
         });
     </script>
     {% endblock content %}

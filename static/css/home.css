@@ -529,6 +529,7 @@ p {
   top: 76px;
   gap: 40px; */
   border: 5px solid red;
+  position: relative;
 
 }
 .section-2 .side-nav {
@@ -603,14 +604,13 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 2px solid red; */
-  height: auto;
+  /* height: auto; */
   width: 75%;
   position: absolute;
   top: 76px;
-  left: 300px;
-  border: 1px solid greenyellow;
-  margin-left: 30px;
+  left: 350px;
+  border: 5px solid greenyellow;
+  margin: 30px;
 }
 
 .features .features-container {

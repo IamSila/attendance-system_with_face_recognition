@@ -7,6 +7,8 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField() 
+    location = models.CharField(max_length=256)
+    courseCode = models.CharField(max_length=5, default='j17')
 
     def __str__(self):
         return self.title
@@ -26,3 +28,16 @@ class Student(models.Model):
         return f"{self.firstName} {self.lastName} {self.username}"
 
 
+class Profile(models.Model):
+    first_name = models.CharField(max_length=70)
+    last_name = models.CharField(max_length=70)
+    regNo = models.CharField(max_length=20)
+    course = models.CharField(max_length=200)
+    date = models.DateField(null=True)
+    phone = models.BigIntegerField()
+    email = models.EmailField()
+    ranking = models.IntegerField()
+    image = models.ImageField(upload_to='media/profileImages')
+    
+    def __str__(self):
+        return self.first_name +' '+self.last_name
