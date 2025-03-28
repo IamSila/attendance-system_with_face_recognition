@@ -91,6 +91,7 @@ def get_tasks(request):
             'description': task.description,
             'start': task.start_time.isoformat(),
             'end': task.end_time.isoformat(),
+            'courseCode': task.courseCode,
         })
     return JsonResponse(tasks_list, safe=False)
 @login_required
