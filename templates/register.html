@@ -1,70 +1,78 @@
 {% load static %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% block css %}
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
-</head>
-<body>
-    <section class="section-1">
-        <div class="container-register">
-            <h1>Register</h1>
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == 'error' %}
-                        <center><h4 style="color: firebrick;">{{message}}</h4></center>
-                    {% else %}
-                        <center><h4 style="color: green;">{{message}}</h4></center>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-            <p>Welcome! Register with your details</p>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="names">
-                    <label for="firstName">First-Name</label>
-                    <br>
-                    <input type="text" name="first_name" id="" placeholder="John" required>
+{% endblock %}
 
-                    <label for="middle_name">Middle-Name</label>
-                    <br>
-                    <input type="text" name="middle_name" id="" placeholder="Jane" required>
-
-                    <label for="lastName">Last-Name</label>
-                    <br>
-                    <input type="text" name="last_name" id="" placeholder="Doe" required>
-                </div>
-
-                <label for="registrationNumber">Username [Registration number]</label>
-                <input type="text" name="username" id="" placeholder="a12-3322-1990" required>
+{% block content %}
+<section class="section-1">
+    <div class="container-register">
+        <h1>Register</h1>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <center><h4 style="color: firebrick;">{{message}}</h4></center>
+                {% else %}
+                    <center><h4 style="color: green;">{{message}}</h4></center>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <p>Welcome! Register with your details</p>
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="names">
+                <label for="first_name">First-Name</label>
                 <br>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="" placeholder="abc@gmail.com" required>
+                <input type="text" name="first_name" placeholder="John" required>
 
-                <div class="passwords">
-                    <label for="password">Password:</label>
-                    <br>
-                    <input type="password" name="password" id="" placeholder="password" required>
+                <label for="middle_name">Middle-Name</label>
+                <br>
+                <input type="text" name="middle_name" placeholder="Jane">
 
-                    <label for="confirmPassword">Confirm Password:</label>
-                    <br>
-                    <input type="password" name="confirmPassword" id="" placeholder="confirm password" required>
-                </div>
-                <div class="register-btn">
-                    <button type="submit">REGISTER</button>
-                </div>
-                
-            </form>
-            <div class="login-footer">
-                <p>Have an Account? <a href="{% url 'login' %}">Login</a></p>
-
-                <a href="">Forgot Your password?</a>
+                <label for="last_name">Last-Name</label>
+                <br>
+                <input type="text" name="last_name" placeholder="Doe" required>
             </div>
+
+            <label for="username">Username [Registration number]</label>
+            <input type="text" name="username" placeholder="a12-3322-1990" required>
+
+            <label for="course">Course</label>
+            <input type="text" name="course" placeholder="Computer Science" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" name="phone" placeholder="0712345678" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="abc@gmail.com" required>
+
+            <div class="passwords">
+                <label for="password">Password:</label>
+                <br>
+                <input type="password" name="password" placeholder="password" required>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <br>
+                <input type="password" name="confirmPassword" placeholder="confirm password" required>
+            </div>
+
+            <label for="ranking">Ranking</label>
+            <input type="number" name="ranking" placeholder="Enter your ranking" required>
+
+            <label for="image">Profile Image</label>
+            <input type="file" name="image" accept="image/*" required>
+
+            <div class="register-btn">
+                <button type="submit">REGISTER</button>
+            </div>
+        </form>
+
+        <div class="login-footer">
+            <p>Have an Account? <a href="{% url 'login' %}">Login</a></p>
+            <a href="">Forgot Your password?</a>
         </div>
-    </section>
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

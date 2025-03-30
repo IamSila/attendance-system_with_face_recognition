@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/markAttendance.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="events">
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <button class="mark-attendance-btn">Mark Attendance</button>
+    </div>
+
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <button class="mark-attendance-btn">Mark Attendance</button>
+    </div>
+
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <button class="mark-attendance-btn">Mark Attendance</button>
+    </div>
+
+</div>
+
+<div class="markAttendance-section">
+    <h2>Mark Attendance for {{ class_name }}</h2>
+    <div class="camera-container">
+        <video id="video" width="640" height="480" autoplay></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <button id="capture-btn" class="mark-attendance-btn">Capture Photo</button>
+    </div>
+
+    <div id="preview-container" style="display: none;">
+        <img id="preview" width="640" height="480">
+        <button id="submit-btn" class="mark-attendance-btn">Submit Attendance</button>
+        <button id="retake-btn" class="mark-attendance-btn">Retake Photo</button>
+    </div>
+
+    <div id="message-container" style="display: none;">
+        <p id="message-text"></p>
+    </div>
+
+    <form id="attendance-form" method="POST" action="{% url 'markAttendance' %}?class_name={{ class_name }}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="captured_image" id="captured_image">
+    </form>
+</div>
+
+    <style>
+        .markAttendance-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .markAttendance-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 20px 0;
+        }
+
+        #video, #preview {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #retake-btn {
+            background-color: #f44336 !important;
+        }
+
+        #retake-btn:hover {
+            background-color: #da190b !important;
+        }
+
+        #message-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #message-container.success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        #message-container.error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+
+        #message-container.warning {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+        }
+    </style>
+
+    <script>
+        // Get DOM elements for camera functionality
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('capture-btn');
+        const preview = document.getElementById('preview');
+        const previewContainer = document.getElementById('preview-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const retakeBtn = document.getElementById('retake-btn');
+        const attendanceForm = document.getElementById('attendance-form');
+        const messageContainer = document.getElementById('message-container');
+        const messageText = document.getElementById('message-text');
+
+        // Function to show messages
+        function showMessage(message, type) {
+            messageContainer.style.display = 'block';
+            messageContainer.className = type;
+            messageText.textContent = message;
+        }
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error('Error accessing webcam:', err);
+                showMessage('Error accessing webcam. Please make sure you have granted camera permissions.', 'error');
+            });
+
+        // Capture photo
+        captureBtn.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            // Show preview
+            preview.src = canvas.toDataURL('image/jpeg');
+            previewContainer.style.display = 'block';
+            captureBtn.style.display = 'none';
+            messageContainer.style.display = 'none';
+        });
+
+        // Retake photo
+        retakeBtn.addEventListener('click', () => {
+            previewContainer.style.display = 'none';
+            captureBtn.style.display = 'block';
+            messageContainer.style.display = 'none';
+        });
+
+        // Submit attendance
+        submitBtn.addEventListener('click', () => {
+            // Convert canvas to blob
+            canvas.toBlob(blob => {
+                // Create form data
+                const formData = new FormData(attendanceForm);
+                formData.append('captured_image', blob, 'captured_image.jpg');
+                
+                // Submit form
+                fetch(attendanceForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showMessage(data.message, data.status);
+                    
+                    if (data.status === 'success') {
+                        // Redirect to dashboard after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/dashboard/';
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('Error submitting attendance. Please try again.', 'error');
+                });
+            }, 'image/jpeg');
+        });
+    </script>
+
+    <script>
+    // Fetch and display events
+    async function fetchAndDisplayEvents() {
+      try {
+        const response = await fetch('/api/tasks/');
+        const events = await response.json();
+        
+        // Get current date in YYYY-MM-DD format
+        const today = new Date();
+        const currentDate = today.toISOString().split('T')[0];
+        
+        // Filter events for current date
+        const todayEvents = events.filter(event => {
+          const eventDate = new Date(event.start).toISOString().split('T')[0];
+          return eventDate === currentDate;
+        });
+        
+        // Get all event boxes
+        const eventBoxes = document.querySelectorAll('.events .event-box');
+        
+        // Update each event box with the fetched data
+        todayEvents.slice(0, 4).forEach((event, index) => {
+          if (eventBoxes[index]) {
+            const eventName = eventBoxes[index].querySelector('.event-name');
+            const eventTime = eventBoxes[index].querySelector('.event-time');
+            
+            if (eventName) {
+                eventName.textContent = event.title || 'No Class during this time';
+            }
+            if (eventTime) {
+                // Function to update current time
+                function updateCurrentTime() {
+                    const eventTimes = document.querySelectorAll('.event-time');
+                    eventTimes.forEach(eventTime => {
+                    const timeParagraph = eventTime.querySelector('p:first-child');
+                    if (timeParagraph) {
+                        const now = new Date();
+                        const hours = String(now.getHours()).padStart(2, '0');
+                        const minutes = String(now.getMinutes()).padStart(2, '0');
+                        const seconds = String(now.getSeconds()).padStart(2, '0');
+                        timeParagraph.textContent = `${hours}:${minutes}:${seconds}`;
+                    }
+                    });
+                }
+            
+                // Update time every second
+                setInterval(updateCurrentTime, 1000);
+                // Initial update
+                updateCurrentTime();
+
+                const timeElement = eventTime.querySelector('p:last-child');
+                if (timeElement) {
+                    const startTime = new Date(event.start).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    const endTime = new Date(event.end).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    timeElement.textContent = `${startTime} - ${endTime}` || 'No Time';
+                }
+            }
+          }
+        });
+
+        // If no events for today, show "No classes today" message
+        if (todayEvents.length === 0) {
+          eventBoxes.forEach(box => {
+            const eventName = box.querySelector('.event-name');
+            if (eventName) {
+              eventName.textContent = 'No classes today';
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    }
+
+    // Call the function when the page loads
+    fetchAndDisplayEvents();
+
+    
+  </script>
+
+{% endblock %}

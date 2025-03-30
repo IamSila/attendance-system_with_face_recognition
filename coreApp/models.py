@@ -16,28 +16,34 @@ class Task(models.Model):
 
 
 # Register and Students model
-class Student(models.Model):
+class StudentProfile(models.Model):
     first_name = models.CharField(max_length=256)
-    middle_name = models.CharField(max_length=256, default="jane")
+    middle_name = models.CharField(max_length=256, null=True)
     last_name = models.CharField(max_length=256)
     username = models.CharField(max_length=256)
+    course = models.CharField(max_length=200)
+    phone = models.BigIntegerField()
     email = models.EmailField()
     password = models.CharField(max_length=256)
-    
+    ranking = models.CharField(max_length=256)
+    image = models.ImageField(upload_to='media/profileImages')
+
+
     def __str__(self):
         return f"{self.firstName} {self.lastName} {self.username}"
 
 
-class Profile(models.Model):
-    first_name = models.CharField(max_length=70)
-    last_name = models.CharField(max_length=70)
-    regNo = models.CharField(max_length=20)
-    course = models.CharField(max_length=200)
-    date = models.DateField(null=True)
-    phone = models.BigIntegerField()
-    email = models.EmailField()
-    ranking = models.IntegerField()
-    image = models.ImageField(upload_to='media/profileImages')
+# Model to store attendance records
+class Attendance(models.Model):
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    class_name = models.CharField(max_length=200)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[
+        ('present', 'Present'),
+        ('absent', 'Absent'),
+        ('late', 'Late')
+    ])
     
     def __str__(self):
-        return self.first_name +' '+self.last_name
+        return f"{self.student.first_name} {self.student.last_name} - {self.class_name} - {self.date}"

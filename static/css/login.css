@@ -423,7 +423,7 @@
   }
 
   .section-1 .container-login form button {
-    background: rgb(35, 91, 243);
+    background-image: linear-gradient(to right, rgb(11, 132, 189), rgb(102, 53, 182));
     color: white;
     border: 2px rgb(35, 91, 243) solid;
     border-radius: 4px;

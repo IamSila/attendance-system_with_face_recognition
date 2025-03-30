@@ -34,7 +34,7 @@
                 {% if user.is_authenticated %}
                     <div class="right">
                         <a href="" ><i class="fa-solid fa-bell"></i></a>
-                        <img src="{% static '/images/dashboard/profile.png' %}" alt="">
+                        <img src="{{ user.image.url }}" alt="">
                         <h3>{{ user.username }}</h3>
                         <a href="{% url 'logout' %}" class="logout">logout</a>
                     </div>
@@ -58,6 +58,7 @@
                         <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
                         <li><a href="{% url 'profile' %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
                         <li><a href="#"><i class="fa-solid fa-people-roof"></i>Attendance Record</a></li>
+                        <li><a href="{% url 'markAttendance' %}"><i class="fa-solid fa-people-roof"></i>Mark Attendance</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
                         {% endif %}

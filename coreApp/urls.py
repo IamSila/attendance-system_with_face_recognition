@@ -12,4 +12,6 @@ urlpatterns = [
     path('dashboard/', views.Dashboard, name="dashboard"),
     path('profile/', views.Profile, name="profile"),
     path('profileUpdate/', views.UpdateProfile, name='profileUpdate'),
+    path('markAttendance/', views.MarkAttendance, name='markAttendance'),
+    path('markAttendance/<str:class_name>/', views.MarkAttendance, name='attendClass'),
 ]
