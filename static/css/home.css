@@ -608,11 +608,12 @@ p {
   width: 75%;
   position: absolute;
   top: 76px;
-  left: 300px;
+  left: 350px;
   /* border: 5px solid greenyellow; */
   /* margin: 30px; */
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-left: 30px;
 }
 
 .features .features-container {
