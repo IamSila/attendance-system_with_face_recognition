@@ -528,7 +528,7 @@ p {
   /* position: absolute;
   top: 76px;
   gap: 40px; */
-  border: 5px solid red;
+  /* border: 5px solid red; */
   position: relative;
 
 }
@@ -608,9 +608,11 @@ p {
   width: 75%;
   position: absolute;
   top: 76px;
-  left: 350px;
+  left: 300px;
   /* border: 5px solid greenyellow; */
-  margin: 30px;
+  /* margin: 30px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .features .features-container {
@@ -622,7 +624,7 @@ p {
   box-shadow: 0 0 1px 3px rgb(241, 240, 240);
   width: 80%;
   background-image: linear-gradient(to top, rgb(11, 132, 189), rgb(102, 53, 182));
-  border: 1px red solid;
+  /* border: 1px red solid; */
   
 }
 
@@ -680,11 +682,3 @@ p {
 .features .feature-box:nth-child(6) h4 {
   background-color: #fff2e5;
 }
-
-
-
-
-
-
-
-

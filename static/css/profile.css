@@ -10,7 +10,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    border: 1px red solid;
+    /* border: 1px red solid; */
 }
 
 /* Profile header section */
@@ -111,7 +111,8 @@
 
 /* Edit button */
 .edit-button {
-    background-color: #4CAF50;
+    /* background-color: #4CAF50; */
+    background-image: linear-gradient(to right, rgb(11, 132, 189), rgb(102, 53, 182));
     color: white;
     border: none;
     padding: 10px 20px;

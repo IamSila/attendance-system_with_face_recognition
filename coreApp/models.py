@@ -26,11 +26,11 @@ class StudentProfile(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=256)
     ranking = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='media/profileImages')
+    image = models.ImageField(upload_to='student_photos')
 
 
     def __str__(self):
-        return f"{self.firstName} {self.lastName} {self.username}"
+        return f"{self.first_name} {self.last_name} {self.username}"
 
 
 # Model to store attendance records

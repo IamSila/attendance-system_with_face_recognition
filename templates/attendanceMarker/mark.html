@@ -1,0 +1,98 @@
+<!-- templates/attendance/mark.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="attendance-container">
+    <h2>Mark Your Attendance</h2>
+    <div class="video-container">
+        <video id="video" width="640" height="480" autoplay></video>
+    </div>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <button id="capture-btn" class="btn btn-primary">Mark Attendance</button>
+    
+    <div id="message" class="message"></div>
+    <div id="location-status" class="location-status"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const messageDiv = document.getElementById('message');
+    const locationDiv = document.getElementById('location-status');
+    
+    let currentLocation = null;
+    
+    // Access camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            messageDiv.textContent = 'Error accessing camera: ' + err.message;
+            messageDiv.style.color = 'red';
+        });
+    
+    // Get location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                currentLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                locationDiv.textContent = 'Location detected';
+                locationDiv.style.color = 'green';
+            },
+            error => {
+                locationDiv.textContent = 'Error getting location: ' + error.message;
+                locationDiv.style.color = 'red';
+            },
+            { enableHighAccuracy: true }
+        );
+    } else {
+        locationDiv.textContent = 'Geolocation is not supported by this browser';
+        locationDiv.style.color = 'red';
+    }
+    
+    // Capture image and mark attendance
+    captureBtn.addEventListener('click', function() {
+        if (!currentLocation) {
+            messageDiv.textContent = 'Please enable location services';
+            messageDiv.style.color = 'red';
+            return;
+        }
+        
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Convert to base64
+        const imageData = canvas.toDataURL('image/png');
+        
+        // Send to server
+        fetch('/attendance/mark_attendance/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ 
+                image: imageData,
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                messageDiv.textContent = 'Attendance marked successfully!';
+                messageDiv.style.color = 'green';
+            } else {
+                messageDiv.textContent = 'Error: ' + data.error;
+                messageDiv.style.color = 'red';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

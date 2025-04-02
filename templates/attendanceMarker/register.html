@@ -1,0 +1,61 @@
+<!-- templates/attendance/register.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="attendance-container">
+    <h2>Register Your Face</h2>
+    <div class="video-container">
+        <video id="video" width="640" height="480" autoplay></video>
+    </div>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <button id="capture-btn" class="btn btn-primary">Capture & Register</button>
+    <div id="message" class="message"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const messageDiv = document.getElementById('message');
+    
+    // Access camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            messageDiv.textContent = 'Error accessing camera: ' + err.message;
+            messageDiv.style.color = 'red';
+        });
+    
+    // Capture image
+    captureBtn.addEventListener('click', function() {
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Convert to base64
+        const imageData = canvas.toDataURL('image/png');
+        
+        // Send to server
+        fetch('/attendance/register_face/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ image: imageData })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                messageDiv.textContent = 'Face registered successfully!';
+                messageDiv.style.color = 'green';
+            } else {
+                messageDiv.textContent = 'Error: ' + data.error;
+                messageDiv.style.color = 'red';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
