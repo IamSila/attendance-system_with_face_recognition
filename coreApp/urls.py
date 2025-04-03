@@ -13,6 +13,6 @@ urlpatterns = [
     path('profileUpdate/', views.UpdateProfile, name='profileUpdate'),
     path('api/tasks/', views.get_tasks, name='get_tasks'),
     path('markAttendance/', views.MarkAttendance, name='markAttendance'),
-    # path('markAttendance/<str:class_name>/', views.MarkAttendance, name='attendClass'),
+    path('mark-attendance/<str:class_name>/', views.MarkAttendance, name='attendClass'),
     path('recognize-face/', views.recognize_face, name='recognize_face'),
 ]

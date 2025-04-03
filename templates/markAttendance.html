@@ -14,7 +14,9 @@
             <p></p>
             <p></p>
         </div>
-        <button class="mark-attendance-btn">Mark Attendance</button>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>Mark Attendance</button>
+        </a>
     </div>
 
     <div class="event-box">
@@ -23,7 +25,9 @@
             <p></p>
             <p></p>
         </div>
-        <button class="mark-attendance-btn">Mark Attendance</button>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>Mark Attendance</button>
+        </a>
     </div>
 
     <div class="event-box">
@@ -32,9 +36,10 @@
             <p></p>
             <p></p>
         </div>
-        <button class="mark-attendance-btn">Mark Attendance</button>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>Mark Attendance</button>
+        </a>
     </div>
-
 </div>
 
 <div class="markAttendance-section">
@@ -253,75 +258,64 @@
 
     // Fetch and display events
     async function fetchAndDisplayEvents() {
-      try {
-        const response = await fetch('/api/tasks/');
-        const events = await response.json();
-        
-        // Get current date in YYYY-MM-DD format
-        const today = new Date();
-        const currentDate = today.toISOString().split('T')[0];
-        
-        // Filter events for current date
-        const todayEvents = events.filter(event => {
-          const eventDate = new Date(event.start).toISOString().split('T')[0];
-          return eventDate === currentDate;
-        });
-        
-        // Get all event boxes
-        const eventBoxes = document.querySelectorAll('.events .event-box');
-        
-        // Update each event box with the fetched data
-        todayEvents.slice(0, 4).forEach((event, index) => {
-          if (eventBoxes[index]) {
-            const eventName = eventBoxes[index].querySelector('.event-name');
-            const eventTime = eventBoxes[index].querySelector('.event-time');
+        try {
+            const response = await fetch('/api/tasks/');
+            const events = await response.json();
             
-            if (eventName) {
-                eventName.textContent = event.title || 'No Class during this time';
-            }
-            if (eventTime) {
-                // Function to update current time
-                function updateCurrentTime() {
-                    const eventTimes = document.querySelectorAll('.event-time');
-                    eventTimes.forEach(eventTime => {
-                    const timeParagraph = eventTime.querySelector('p:first-child');
-                    if (timeParagraph) {
-                        const now = new Date();
-                        const hours = String(now.getHours()).padStart(2, '0');
-                        const minutes = String(now.getMinutes()).padStart(2, '0');
-                        const seconds = String(now.getSeconds()).padStart(2, '0');
-                        timeParagraph.textContent = `${hours}:${minutes}:${seconds}`;
+            // Get current date in YYYY-MM-DD format
+            const today = new Date();
+            const currentDate = today.toISOString().split('T')[0];
+            
+            // Filter events for current date
+            const todayEvents = events.filter(event => {
+                const eventDate = new Date(event.start).toISOString().split('T')[0];
+                return eventDate === currentDate;
+            });
+            
+            // Get all event boxes
+            const eventBoxes = document.querySelectorAll('.events .event-box');
+            
+            // Update each event box with the fetched data
+            todayEvents.slice(0, 3).forEach((event, index) => {
+                if (eventBoxes[index]) {
+                    const eventName = eventBoxes[index].querySelector('.event-name');
+                    const eventTime = eventBoxes[index].querySelector('.event-time');
+                    const markAttendanceBtn = eventBoxes[index].querySelector('.mark-attendance-btn');
+                    const markAttendanceLink = eventBoxes[index].querySelector('.mark-attendance-btn-container');
+                    
+                    if (eventName) {
+                        eventName.textContent = event.title || 'No Class during this time';
                     }
-                    });
-                }
-            
-                // Update time every second
-                setInterval(updateCurrentTime, 1000);
-                // Initial update
-                updateCurrentTime();
+                    
+                    if (eventTime) {
+                        const timeElement = eventTime.querySelector('p:last-child');
+                        if (timeElement) {
+                            const startTime = new Date(event.start).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                            const endTime = new Date(event.end).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                            timeElement.textContent = `${startTime} - ${endTime}` || 'No Time';
+                        }
+                    }
 
-                const timeElement = eventTime.querySelector('p:last-child');
-                if (timeElement) {
-                    const startTime = new Date(event.start).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    const endTime = new Date(event.end).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    timeElement.textContent = `${startTime} - ${endTime}` || 'No Time';
+                    // Update mark attendance button
+                    if (markAttendanceBtn && markAttendanceLink) {
+                        markAttendanceBtn.disabled = false;
+                        markAttendanceLink.href = `/mark-attendance/${event.title}/`;
+                    }
                 }
-            }
-          }
-        });
+            });
 
-        // If no events for today, show "No classes today" message
-        if (todayEvents.length === 0) {
-          eventBoxes.forEach(box => {
-            const eventName = box.querySelector('.event-name');
-            if (eventName) {
-              eventName.textContent = 'No classes today';
+            // If no events for today, show "No classes today" message
+            if (todayEvents.length === 0) {
+                eventBoxes.forEach(box => {
+                    const eventName = box.querySelector('.event-name');
+                    if (eventName) {
+                        eventName.textContent = 'No classes today';
+                    }
+                });
             }
-          });
+        } catch (error) {
+            console.error('Error fetching events:', error);
         }
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
     }
 
     // Call the function when the page loads
