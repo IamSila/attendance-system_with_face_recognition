@@ -326,3 +326,10 @@ def recognize_face(request):
             'status': 'error',
             'message': f'An error occurred: {str(e)}'
         })
+
+
+def customAdmin(request):
+    return render(request, 'admin/adminBase.html')
+
+def studentRecords(request):
+    return render(request, 'admin/studentRecords.html')

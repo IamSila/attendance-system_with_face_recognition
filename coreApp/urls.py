@@ -15,4 +15,6 @@ urlpatterns = [
     path('markAttendance/', views.MarkAttendance, name='markAttendance'),
     path('mark-attendance/<str:class_name>/', views.MarkAttendance, name='attendClass'),
     path('recognize-face/', views.recognize_face, name='recognize_face'),
+    path('customAdmin/', views.customAdmin, name='customAdmin'),
+    path('customAdmin/studentRecords/', views.studentRecords, name='studentRecords'),
 ]

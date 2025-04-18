@@ -1,0 +1,235 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- start of center part [studentTables] -->
+    <div class="studentQueries">
+        <div class="heading">
+            <div class="title">
+                <h1>Attendance Management</h1>
+                <div class="actionButtons">
+                    <button>Import</button>
+                    <button>Export</button>
+                </div>
+            </div>
+            <div class="filters">
+                <form action="">
+                <label for="course">course: </label>
+                <select name="course" id="">
+                    <option value="" selected>Choose course</option>
+                    <option value="">computer science</option>
+                    <option value="">Mechanical Engineering</option>
+                    <option value="">Electrical Engineering</option>
+                    <option value="">Psychology and counselling</option>
+                    <option value="">Education</option>
+                </select>
+
+                <label for="course">class: </label>
+                <select name="course" id="">
+                    <option value="">Choose a class</option>
+                    <option value="">Software management</option>
+                    <option value="">Web development</option>
+                    <option value="">Artificial Intelligence</option>
+                    <option value="">COA</option>
+                    <option value="">Networking</option>
+                    <option value="">Network Management</option>
+                    <option value="">Data Structures and Algorithms</option>
+                    <option value="">C Programming</option>
+                    <option value="">Object Oriented programming</option>
+                </select>
+
+                <label for="regNumber">Reg No.:</label>
+                    <select name="" id="">
+                        <option value="">j17-0982-2020</option>
+                        <option value="">spa-3423-2020</option>
+                    </select>
+                
+                <!-- submit button -->
+                 <button type="submit">Fetch</button>
+                </form>
+
+                
+
+            </div>
+        </div>
+
+
+        <div class="results">
+                    
+            <h1>Student Attendance Records</h1>
+            
+            <div class="controls">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date">
+                <button onclick="filterRecords()">Filter</button>
+            </div>
+            
+            <table id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Class</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Admin actions</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S001</td>
+                        <td>John Smith</td>
+                        <td>Computer Science</td>
+                        <td>Grade 10-A</td>
+                        <td>2023-10-15</td>
+                        <!-- <td>
+                            <select class="status-select" onchange="updateStatus(this)">
+                                <option value="present" selected class="present">Present</option>
+                                <option value="absent" class="absent">Absent</option>
+                                <option value="late" class="late">Late</option>
+                                <option value="excused">Excused</option>
+                            </select>
+                        </td> -->
+                        <td>Present</td>
+                        <td>
+                            <a href=""><button class="btn btn-update">Update</button></a>
+                            <a href=""><button class="btn btn-delete">Delete</button></a>
+                            <a href=""><button class="btn btn-view">view</button></a>
+                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        </td>
+                        <!-- <td><button id="viewActions" class="btn btn-actions">View action</button></td> -->
+                        
+                    </tr>
+                    <tr>
+                        <td>S002</td>
+                        <td>Emily Johnson</td>
+                        <td>Computer Science</td>
+                        <td>Grade 10-A</td>
+                        <td>2023-10-15</td>
+                        <!-- <td>
+                            <select class="status-select" onchange="updateStatus(this)">
+                                <option value="present" class="present">Present</option>
+                                <option value="absent" selected class="absent">Absent</option>
+                                <option value="late" class="late">Late</option>
+                                <option value="excused">Excused</option>
+                            </select>
+                        </td> -->
+                        <td>Present</td>
+                        <td>
+                            <a href=""><button class="btn btn-update">Update</button></a>
+                            <a href=""><button class="btn btn-delete">Delete</button></a>
+                            <a href=""><button class="btn btn-view">view</button></a>
+                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S003</td>
+                        <td>Michael Brown</td>
+                        <td>Computer Science</td>
+                        <td>Grade 10-A</td>
+                        <td>2023-10-15</td>
+                        <!-- <td>
+                            <select class="status-select" onchange="updateStatus(this)">
+                                <option value="present" class="present">Present</option>
+                                <option value="absent" class="absent">Absent</option>
+                                <option value="late" selected class="late">Late</option>
+                                <option value="excused">Excused</option>
+                            </select>
+                        </td> -->
+                        <td>absent</td>
+                        <td>
+                            <a href=""><button class="btn btn-update">Update</button></a>
+                            <a href=""><button class="btn btn-delete">Delete</button></a>
+                            <a href=""><button class="btn btn-view">view</button></a>
+                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S004</td>
+                        <td>Sarah Williams</td>
+                        <td>Computer Science</td>
+                        <td>Grade 10-A</td>
+                        <td>2023-10-15</td>
+                        <!-- <td>
+                            <select class="status-select" onchange="updateStatus(this)">
+                                <option value="present" selected class="present">Present</option>
+                                <option value="absent" class="absent">Absent</option>
+                                <option value="late" class="late">Late</option>
+                                <option value="excused">Excused</option>
+                            </select>
+                        </td> -->
+                        <td>Present</td>
+                        <td>
+                            <a href=""><button class="btn btn-update">Update</button></a>
+                            <a href=""><button class="btn btn-delete">Delete</button></a>
+                            <a href=""><button class="btn btn-view">view</button></a>
+                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S005</td>
+                        <td>David Lee</td>
+                        <td>Computer Science</td>
+                        <td>Grade 10-A</td>
+                        <td>2023-10-15</td>
+                        <!-- <td>
+                            <select class="status-select" onchange="updateStatus(this)">
+                                <option value="present" class="present">Present</option>
+                                <option value="absent" class="absent">Absent</option>
+                                <option value="late" class="late">Late</option>
+                                <option value="excused" selected>Excused</option>
+                            </select>
+                        </td> -->
+                        <td>Present</td>
+                        <td>
+                            <a href="#"><button class="btn btn-update">Update</button></a>
+                            <a href=""><button class="btn btn-delete">Delete</button></a>
+                            <a href=""><button class="btn btn-view">view</button></a>
+                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="edits" class="edits hidden">
+                <a href="#"><button class="btn btn-update">Update</button></a>
+                <a href=""><button class="btn btn-delete">Delete</button></a>
+                <a href=""><button class="btn btn-view">view</button></a>
+                <a href=""><button class="btn btn-contact">contact</button></a>
+                <button id="btn-close" class="btn-close"><i class="fa-solid fa-circle-xmark btn"></i></button>
+            </div>
+        </div>
+    <!-- <script>
+        function updateStatus(selectElement) {
+            // Remove all color classes first
+            selectElement.classList.remove('present', 'absent', 'late');
+            
+            // Add the appropriate class based on selected value
+            if (selectElement.value === 'present') {
+                selectElement.classList.add('present');
+            } else if (selectElement.value === 'absent') {
+                selectElement.classList.add('absent');
+            } else if (selectElement.value === 'late') {
+                selectElement.classList.add('late');
+            }
+            
+            // In a real application, you would save this change to a database
+            console.log('Status updated to:', selectElement.value);
+        }
+        
+        function filterRecords() {
+            const date = document.getElementById('date').value;
+            // In a real application, this would filter the table based on the selected date
+            alert('Filtering for date: ' + date + '\n(Actual filtering would be implemented with server-side code or more JavaScript)');
+        }
+    </script> -->
+
+        </div>
+    </div>
+
+    <!-- end of studentQueries [center part] -->
+    <div class="rightSideNav"></div>
+{% endblock content %}
