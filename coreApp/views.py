@@ -333,3 +333,6 @@ def customAdmin(request):
 
 def studentRecords(request):
     return render(request, 'admin/studentRecords.html')
+
+def createRecords(request):
+    return render(request, 'admin/createRecords.html')

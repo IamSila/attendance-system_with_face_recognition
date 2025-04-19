@@ -17,4 +17,6 @@ urlpatterns = [
     path('recognize-face/', views.recognize_face, name='recognize_face'),
     path('customAdmin/', views.customAdmin, name='customAdmin'),
     path('customAdmin/studentRecords/', views.studentRecords, name='studentRecords'),
+    path('customAdmin/createRecords/', views.createRecords, name='createRecords'),
+
 ]

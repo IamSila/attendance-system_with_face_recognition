@@ -8,7 +8,10 @@
 
     <!-- cdn link for all favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static '/css/admin.css' %}">
+    <link rel="stylesheet" href="{% static '/css/admin/admin.css' %}">
+    {% block css %}
+        
+    {% endblock css %}
    
 
     <style>
@@ -89,7 +92,7 @@
             <div class="sideNavButtons1">
                 <ul>
                     <a href=""><li><i class="fa-solid fa-rectangle-list"></i>Dashboard</li></a>
-                    <a href="{% url 'studentRecords' %}"><li><i class="fa-solid fa-graduation-cap"></i>Create new Records</li></a>
+                    <a href="{% url 'createRecords' %}"><li><i class="fa-solid fa-graduation-cap"></i>Create new Records</li></a>
                     <a href="{% url 'studentRecords' %}"><li><i class="fa-solid fa-graduation-cap"></i>Students Records</li></a>
                     <a href=""><li><i class="fa-solid fa-book-open-reader"></i>Attendance Records</li></a>
                     <a href=""><li><i class="fa-solid fa-chart-line"></i>Analytics</li></a>

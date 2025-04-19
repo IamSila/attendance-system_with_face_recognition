@@ -1,0 +1,85 @@
+.createRecords {
+    width: 85%;
+    box-shadow: 0 0 1px 3px rgb(90, 88, 88);
+    padding: 15px;
+    margin-left: 300px;
+    margin-top: 0;  
+}
+
+.createRecords .form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.createRecords .form-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+.createRecords .form-container .form-group {
+    margin-bottom: 20px;
+}
+
+.createRecords .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.createRecords .form-container input[type="text"],
+.createRecords .form-container input[type="datetime-local"],
+.createRecords .form-container textarea,
+.createRecords .form-container select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s;
+    box-sizing: border-box;
+}
+
+.createRecords .form-container textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.createRecords .form-container input:focus,
+.createRecords .form-container textarea:focus,
+.createRecords .form-container select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.createRecords .form-container .time-fields {
+    display: flex;
+    gap: 15px;
+}
+
+.createRecords .form-container .time-fields .form-group {
+    flex: 1;
+}
+
+.createRecords .form-container button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.createRecords .form-container button:hover {
+    background-color: black;
+}
