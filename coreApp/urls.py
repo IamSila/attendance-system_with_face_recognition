@@ -18,5 +18,5 @@ urlpatterns = [
     path('customAdmin/', views.customAdmin, name='customAdmin'),
     path('customAdmin/studentRecords/', views.studentRecords, name='studentRecords'),
     path('customAdmin/createRecords/', views.createRecords, name='createRecords'),
-
+    path('customAdmin/attendanceRecords/', views.attendanceRecords, name='attendanceRecords'),
 ]

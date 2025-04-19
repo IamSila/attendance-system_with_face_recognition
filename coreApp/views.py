@@ -328,6 +328,12 @@ def recognize_face(request):
         })
 
 
+
+
+
+
+# admin section
+
 def customAdmin(request):
     return render(request, 'admin/adminBase.html')
 
@@ -336,3 +342,6 @@ def studentRecords(request):
 
 def createRecords(request):
     return render(request, 'admin/createRecords.html')
+
+def attendanceRecords(request):
+    return render(request, 'admin/attendanceRecords.html')

@@ -10,7 +10,7 @@
                 <h1>Attendance Management</h1>
                 <div class="actionButtons">
                     <button>Import</button>
-                    <button>Export</button>
+                    <button>Download</button>
                 </div>
             </div>
             <div class="filters">
@@ -57,7 +57,7 @@
 
         <div class="results">
                     
-            <h1>Student Attendance Records</h1>
+            <h1>Student Records Management</h1>
             
             <div class="controls">
                 <label for="date">Select Date:</label>
@@ -69,10 +69,13 @@
                 <thead>
                     <tr>
                         <th>Student ID</th>
-                        <th>Student Name</th>
+                        <th>Profile</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
                         <th>Course</th>
-                        <th>Class</th>
-                        <th>Date</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
                         <th>Status</th>
                         <th>Admin actions</th>
                         
@@ -80,127 +83,95 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>S001</td>
-                        <td>John Smith</td>
+                        <td>j17-0982-2020</td>
+                        <td>photo</td>
+                        <td>John</td>
+                        <td>middle</td>
+                        <td>Smith</td>
                         <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" selected class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> -->
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        <td>0717486607</td>
+                        <td>sila@gmail.com</td>
+                        <td>Active</td> 
+                        <td class="actions">
+                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
+                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
+                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
                         </td>
-                        <!-- <td><button id="viewActions" class="btn btn-actions">View action</button></td> -->
+                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
                         
                     </tr>
+
                     <tr>
-                        <td>S002</td>
-                        <td>Emily Johnson</td>
+                        <td>j17-0982-2020</td>
+                        <td>photo</td>
+                        <td>John</td>
+                        <td>middle</td>
+                        <td>Smith</td>
                         <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" selected class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> -->
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        <td>0717486607</td>
+                        <td>sila@gmail.com</td>
+                        <td>Active</td> 
+                        <td class="actions">
+                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
+                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
+                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
                         </td>
+                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
+                        
                     </tr>
+
                     <tr>
-                        <td>S003</td>
-                        <td>Michael Brown</td>
+                        <td>j17-0982-2020</td>
+                        <td>photo</td>
+                        <td>John</td>
+                        <td>middle</td>
+                        <td>Smith</td>
                         <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" selected class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> -->
-                        <td>absent</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        <td>0717486607</td>
+                        <td>sila@gmail.com</td>
+                        <td>Active</td> 
+                        <td class="actions">
+                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
+                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
+                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
                         </td>
+                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
+                        
                     </tr>
+
                     <tr>
-                        <td>S004</td>
-                        <td>Sarah Williams</td>
+                        <td>j17-0982-2020</td>
+                        <td>photo</td>
+                        <td>John</td>
+                        <td>middle</td>
+                        <td>Smith</td>
                         <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" selected class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> -->
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
+                        <td>0717486607</td>
+                        <td>sila@gmail.com</td>
+                        <td>Active</td> 
+                        <td class="actions">
+                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
+                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
+                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
                         </td>
+                        <!-- <td><button class="btn btn-actions viewActions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
+                        
                     </tr>
-                    <tr>
-                        <td>S005</td>
-                        <td>David Lee</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused" selected>Excused</option>
-                            </select>
-                        </td> -->
-                        <td>Present</td>
-                        <td>
-                            <a href="#"><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                    </tr>
+    
                 </tbody>
             </table>
 
-            <div id="edits" class="edits hidden">
-                <a href="#"><button class="btn btn-update">Update</button></a>
-                <a href=""><button class="btn btn-delete">Delete</button></a>
-                <a href=""><button class="btn btn-view">view</button></a>
-                <a href=""><button class="btn btn-contact">contact</button></a>
-                <button id="btn-close" class="btn-close"><i class="fa-solid fa-circle-xmark btn"></i></button>
-            </div>
+            <!-- <div class="edits hidden">
+                <a href=""><button class="btn btn-update"><i class="fa-solid fa-file-pen"></i></button></a>
+                <a href=""><button class="btn btn-delete"><i class="fa-solid fa-trash"></i></button></a>
+                <a href=""><button class="btn btn-view"><i class="fa-solid fa-eye"></i></button></a>
+                <a href=""><button class="btn btn-contact"><i class="fa-solid fa-envelope"></i></button></a>
+                <a href=""><button class="btn btn-close"><i class="fa-solid fa-circle-xmark"></i></button></a>
+            </div> -->
         </div>
     <!-- <script>
         function updateStatus(selectElement) {
