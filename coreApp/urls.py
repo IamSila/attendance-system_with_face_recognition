@@ -20,4 +20,6 @@ urlpatterns = [
     path('customAdmin/createRecords/', views.createRecords, name='createRecords'),
     path('customAdmin/attendanceRecords/', views.attendanceRecords, name='attendanceRecords'),
     path('customAdmin/update/<str:username>/', views.update, name='update'),
+    path('customAdmin/delete/<str:username>/', views.delete, name='delete'),
+    path('customAdmin/delete/', views.deleteView, name='deletePage'),
 ]

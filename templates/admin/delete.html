@@ -1,0 +1,40 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/admin/delete.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="delete">
+        <div class="deleteDetails">
+            
+            <div class="warning">
+                <p class="lead">You are about to delete student: <strong style="">{{ student.username }} {{student.first_name}} {{student.last_name}}</strong></p>
+                <p class="text-danger">This action cannot be undone. All associated data will be permanently removed.</p>
+                <p class="on_success">On success you will be redirected back to the student page</p>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="messages">
+                   <h4><i class="fa-solid fa-message"></i>status messages show here</h4>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                                <center><p style="color: firebrick;">{{message}}</p></center>
+                            {% else %}
+                                <center><h4 style="color: green;">{{message}}</h4></center>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="confirmation_details">
+                    <label for="confirmation_username">Confirm account to delete</label>
+                    <input type="text" name="confirmation_username" placeholder="Reg No. i.e j17-0982-2020">
+                </div>
+
+                <div class="btn-submit">
+                    <input type="submit" value="Delete Account" class="btn">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -354,3 +354,26 @@ def update(request, username):
     context = {}
     context['updateStudent'] = updateStudent
     return render(request, 'admin/updateStudent.html', context)
+
+def delete(request, username):
+    student_to_delete = get_object_or_404(StudentProfile, username=username)
+    if request.method == 'POST':
+        confirmation_username = request.POST.get('confirmation_username')
+        if (confirmation_username == username):
+            deleteStudent = get_object_or_404(StudentProfile, username=confirmation_username)
+            deleteStudent.delete()
+            messages.success(request, f"Student {student_to_delete} has been successfully deleted!")
+            return redirect('studentRecords')
+        else:
+            messages.error(request, f"Student deletion for {student_to_delete} failed. Please enter the exact username to confirm deletion!")
+            # return redirect('deletePage')
+            
+        # except Exception as e:
+        #     messages.error(request, f"Error deleting student: {str(e)}")
+
+    # If GET request, show confirmation page
+    student = get_object_or_404(StudentProfile, username=username)
+    return render(request, 'admin/delete.html', {'student': student})
+
+def deleteView(request):
+    return render(request, 'admin/delete.html')
