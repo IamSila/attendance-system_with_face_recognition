@@ -338,10 +338,19 @@ def customAdmin(request):
     return render(request, 'admin/adminBase.html')
 
 def studentRecords(request):
-    return render(request, 'admin/studentRecords.html')
+    context = {}
+    students = StudentProfile.objects.all()
+    context['students'] = students
+    return render(request, 'admin/studentRecords.html', context)
 
 def createRecords(request):
     return render(request, 'admin/createRecords.html')
 
 def attendanceRecords(request):
     return render(request, 'admin/attendanceRecords.html')
+
+def update(request, username):
+    updateStudent = get_object_or_404(StudentProfile, username=username)
+    context = {}
+    context['updateStudent'] = updateStudent
+    return render(request, 'admin/updateStudent.html', context)

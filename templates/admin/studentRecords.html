@@ -69,7 +69,7 @@
                 <thead>
                     <tr>
                         <th>Student ID</th>
-                        <th>Profile</th>
+                        <th>Year</th>
                         <th>First Name</th>
                         <th>Middle Name</th>
                         <th>Last Name</th>
@@ -81,19 +81,23 @@
                         
                     </tr>
                 </thead>
+
                 <tbody>
+                    {% for student in students %}
+
                     <tr>
-                        <td>j17-0982-2020</td>
-                        <td>photo</td>
-                        <td>John</td>
-                        <td>middle</td>
-                        <td>Smith</td>
-                        <td>Computer Science</td>
-                        <td>0717486607</td>
-                        <td>sila@gmail.com</td>
+                        <td>{{ student.username }}</td>
+                        <!-- <td class="profilePhoto">{{ student.image.url }}</td> -->
+                         <td>2nd</td>
+                        <td>{{ student.first_name }}</td>
+                        <td>{{ student.middle_name }}</td>
+                        <td>{{ student.last_name }}</td>
+                        <td>{{ student.course }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.email }}</td>
                         <td>Active</td> 
-                        <td class="actions">
-                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                        <td>
+                            <a href="{% url 'update' student.username %}" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
                             <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
                             <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
                             <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
@@ -102,66 +106,7 @@
                         
                     </tr>
 
-                    <tr>
-                        <td>j17-0982-2020</td>
-                        <td>photo</td>
-                        <td>John</td>
-                        <td>middle</td>
-                        <td>Smith</td>
-                        <td>Computer Science</td>
-                        <td>0717486607</td>
-                        <td>sila@gmail.com</td>
-                        <td>Active</td> 
-                        <td class="actions">
-                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
-                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
-                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
-                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
-                        </td>
-                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
-                        
-                    </tr>
-
-                    <tr>
-                        <td>j17-0982-2020</td>
-                        <td>photo</td>
-                        <td>John</td>
-                        <td>middle</td>
-                        <td>Smith</td>
-                        <td>Computer Science</td>
-                        <td>0717486607</td>
-                        <td>sila@gmail.com</td>
-                        <td>Active</td> 
-                        <td class="actions">
-                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
-                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
-                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
-                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
-                        </td>
-                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
-                        
-                    </tr>
-
-                    <tr>
-                        <td>j17-0982-2020</td>
-                        <td>photo</td>
-                        <td>John</td>
-                        <td>middle</td>
-                        <td>Smith</td>
-                        <td>Computer Science</td>
-                        <td>0717486607</td>
-                        <td>sila@gmail.com</td>
-                        <td>Active</td> 
-                        <td class="actions">
-                            <a href="" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
-                            <a href="" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
-                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
-                            <a href="" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
-                        </td>
-                        <!-- <td><button class="btn btn-actions viewActions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
-                        
-                    </tr>
-    
+                    {% endfor %}
                 </tbody>
             </table>
 

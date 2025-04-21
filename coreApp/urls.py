@@ -19,4 +19,5 @@ urlpatterns = [
     path('customAdmin/studentRecords/', views.studentRecords, name='studentRecords'),
     path('customAdmin/createRecords/', views.createRecords, name='createRecords'),
     path('customAdmin/attendanceRecords/', views.attendanceRecords, name='attendanceRecords'),
+    path('customAdmin/update/<str:username>/', views.update, name='update'),
 ]

@@ -533,7 +533,7 @@
   justify-content: center;
   align-items: center;
   padding: 8px;
-  width: 100px;
+  width: 60px;
   background-color: black;
   border-radius: 8px;
 }
@@ -553,13 +553,13 @@
   transition: 1s;
 } */
 
-#adminDash .studentQueries .results .actions .btn {
-  padding: 7px;
-  color: white;
-  font-size: 14px;
+#adminDash .studentQueries .results table .actions .btn {
+  /* padding: 5px; */
+  /* color: white; */
+  font-size: 5px;
   border-radius: 8px;
   border: none;
-  margin-right: 10px;
+  margin-right: 0;
   transition: 1s;
 }
 
@@ -576,7 +576,7 @@
   color: white;
 }
 
-#adminDash .studentQueries .results .edits .btn-update {
+#adminDash .studentQueries .results .actions .btn-update {
   background-color: green;
 }
 #adminDash .studentQueries .results .edits .btn-delete {
