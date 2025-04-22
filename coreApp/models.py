@@ -4,7 +4,7 @@ from django.utils import timezone
 # calender tasks
 class Task(models.Model):
     title = models.CharField(max_length=256)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField() 
     location = models.CharField(max_length=256)
@@ -17,20 +17,28 @@ class Task(models.Model):
 
 # Register and Students model
 class StudentProfile(models.Model):
-    first_name = models.CharField(max_length=256)
-    middle_name = models.CharField(max_length=256, null=True)
+    # Required fields
+    first_name = models.CharField(max_length=256)  # null=False is default for CharField
     last_name = models.CharField(max_length=256)
-    username = models.CharField(max_length=256)
+    username = models.CharField(max_length=256, unique=True)
     course = models.CharField(max_length=200)
-    phone = models.BigIntegerField()
-    email = models.EmailField()
+    phone = models.BigIntegerField(unique=True)
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=256)
-    ranking = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='student_photos')
-
+    
+    # Optional fields - corrected middle_name field
+    middle_name = models.CharField(
+        max_length=256, 
+        blank=True,  # Allows empty string in forms
+        null=True,    # Allows NULL in database
+        default=''    # Default value when not provided
+    )
+    
+    ranking = models.CharField(max_length=256, blank=True, default='')
+    image = models.ImageField(upload_to='student_photos', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.username}"
+        return f"{self.first_name} {self.last_name} ({self.username})"
 
 
 # Model to store attendance records

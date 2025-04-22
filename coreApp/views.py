@@ -343,8 +343,112 @@ def studentRecords(request):
     context['students'] = students
     return render(request, 'admin/studentRecords.html', context)
 
-def createRecords(request):
-    return render(request, 'admin/createRecords.html')
+def createStudent(request):
+    if request.method == "POST":
+        # Get form data
+        first_name = request.POST.get('first_name')
+        middle_name = request.POST.get('middle_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        course = request.POST.get('course')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        ranking = request.POST.get('ranking')
+        image = request.FILES.get('image')
+
+        user_data_has_error = False
+
+        # Validation checks
+        if User.objects.filter(username=username).exists():
+            user_data_has_error = True
+            messages.error(request, "Reg Number already exists!")
+        
+        if User.objects.filter(email=email).exists():
+            user_data_has_error = True
+            messages.error(request, "Email already exists!")
+        
+        if len(password) < 8:
+            user_data_has_error = True
+            messages.error(request, "Password is too short")
+        
+        # if not image:
+        #     user_data_has_error = True
+        #     messages.error(request, "Please upload a profile image")
+        
+        if user_data_has_error:
+            return redirect('createStudent')
+        
+        try:
+            # Create User object
+            newUser = User.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                email=email,
+                password=password,
+            )
+
+            # Create StudentProfile object
+            student_profile = StudentProfile.objects.create(
+                first_name=first_name,
+                middle_name=middle_name,
+                last_name=last_name,
+                username=username,
+                course=course,
+                phone=phone,
+                email=email,
+                password=password,
+                ranking=ranking,
+                image=image
+            )
+
+            # Save the profile image to student_photos directory
+            student_photos_dir = 'media/student_photos'
+            if not os.path.exists(student_photos_dir):
+                os.makedirs(student_photos_dir)
+            
+            # Save the image with username as filename
+            file_extension = os.path.splitext(image.name)[1]
+            student_photo_path = os.path.join(student_photos_dir, f"{username}{file_extension}")
+            with open(student_photo_path, 'wb+') as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+
+            messages.success(request, "Student profile created successfully!")
+            return redirect('createStudent')
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('createStudent')
+
+    return render(request, 'admin/createStudent.html')
+
+def createTask(request):
+    # Task Creation
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        courseCode = request.POST.get('courseCode')
+
+        try:
+            new_task = Task(
+                title=title,
+                description=description,
+                start_time=start_time,
+                end_time=end_time,
+                courseCode=courseCode
+            )
+            new_task.save()
+            messages.success(request, "Task Added Successfully")
+        except Exception as e:
+            messages.error(request, f"Error saving task: {str(e)}")
+
+        return redirect('createTask')
+
+    return render(request, 'admin/createTask.html') 
 
 def attendanceRecords(request):
     return render(request, 'admin/attendanceRecords.html')

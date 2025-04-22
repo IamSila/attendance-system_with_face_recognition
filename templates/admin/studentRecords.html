@@ -9,6 +9,7 @@
             <div class="title">
                 <h1>Attendance Management</h1>
                 <div class="actionButtons">
+                    <a href="{% url 'createStudent' %}" class="btn-add"><button><i class="fa-solid fa-plus"></i>Add Student Record</button></a>
                     <button>Import</button>
                     <button>Download</button>
                 </div>
@@ -87,7 +88,7 @@
 
                     <tr>
                         <td>{{ student.username }}</td>
-                        <!-- <td class="profilePhoto">{{ student.image.url }}</td> -->
+                        <!-- <td class="profilePhoto"></td> -->
                          <td>2nd</td>
                         <td>{{ student.first_name }}</td>
                         <td>{{ student.middle_name }}</td>

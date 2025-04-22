@@ -1,0 +1,58 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static '/css/admin/createRecords.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class= "createRecords">
+        <div class="addTasks form-container">
+            <h1>Add Timetable Events</h1>
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <center><h1 style="color: green;"">{{message}}</h1></center>
+                        {% endif %}
+                    {% endfor %}
+                    
+                {% endif %}
+            </div>
+            <form id="taskForm" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Unit Title*</label>
+                    <input type="text" id="title" name="title" placeholder="Enter Unit name here" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Topic Description</label>
+                    <textarea id="description" name="description" placeholder="Enter the topic to be covered"></textarea>
+                </div>
+                
+                <div class="time-fields">
+                    <div class="form-group">
+                        <label for="startTime">Start Time*</label>
+                        <input type="datetime-local" id="startTime" name="start_time" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endTime">End Time*</label>
+                        <input type="datetime-local" id="endTime" name="end_time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courseCode">Course Code*</label>
+                    <input type="text" id="courseCode" name="courseCode" placeholder="e.g., j17 or spa" required>
+                </div>
+                
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+        <!-- end add tasks -->
+
+
+    </div>
+
+{% endblock %}

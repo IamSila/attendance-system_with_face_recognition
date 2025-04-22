@@ -441,6 +441,8 @@
   padding: 5px;
 }
 
+
+
 #adminDash .studentQueries .heading .title {
   display: flex;
   justify-content: space-between;
@@ -449,6 +451,12 @@
 
 #adminDash .studentQueries .heading .title .actionButtons {
   margin-right: 5px;
+}
+
+#adminDash .studentQueries .heading .title .actionButtons .btn-add {
+  background-color: green;
+  color: white;
+
 }
 
 #adminDash .studentQueries .heading .title button {
