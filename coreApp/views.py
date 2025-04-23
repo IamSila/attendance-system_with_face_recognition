@@ -147,7 +147,7 @@ def get_tasks(request):
     return JsonResponse(tasks_list, safe=False)
 @login_required
 def Planning(request):
-    return render(request, 'planning2.html')
+    return render(request, 'planning3.html')
 
 @login_required
 def Dashboard(request):
