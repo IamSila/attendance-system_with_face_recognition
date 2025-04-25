@@ -425,7 +425,7 @@
 
 #adminDash .studentQueries {
   width: 85%;
-  box-shadow: 0 0 1px 3px rgb(90, 88, 88);
+  /* box-shadow: 0 0 1px 3px rgb(90, 88, 88); */
   padding: 15px;
   margin-left: 300px;
   margin-top: 0;

@@ -1,0 +1,190 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.studentQueries {
+    width: 100%;
+    box-shadow: 0 0 1px 3px rgb(90, 88, 88);
+    padding: 15px;
+    margin-left: 0px;
+    margin-top: 0;
+    
+  }
+
+.studentQueries .heading {
+    height: 10vh;
+    width: 100%;
+    border-bottom: 1px rgb(90, 88, 88) solid;
+    /* margin-left: 5px; */
+    box-shadow: 0 0 1px 3px rgb(90, 88, 88);
+    padding: 5px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.studentQueries .heading .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .studentQueries .heading .filters label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+.studentQueries .heading .filters select {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid black;
+    text-align: center;
+    /* background-color: blue; */
+  }
+  
+  .studentQueries .heading .filters button[type="submit"] {
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 1px 1px rgba(200, 200, 200, 0.922);
+    transition: 1s ease;
+    background-color: black;
+    color: white;
+  }
+  
+  .studentQueries .heading .filters button[type="submit"]:hover {
+    transform: scale(1.15);
+  }
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.container h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.view-options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.view-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.view-btn:hover {
+    background-color: #2980b9;
+}
+
+.view-btn.active {
+    background-color: #2c3e50;
+}
+
+.date-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #3498db;
+}
+
+.current-period {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.present {
+    color: #27ae60;
+}
+
+.absent {
+    color: #e74c3c;
+}
+
+.late {
+    color: #f39c12;
+}
+
+.status-cell {
+    font-weight: bold;
+}
+
+.btn-download {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+@media (max-width: 768px) {
+    .view-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .view-btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    th, td {
+        padding: 8px 5px;
+        font-size: 0.9em;
+    }
+}

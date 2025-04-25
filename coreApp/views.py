@@ -327,8 +327,8 @@ def recognize_face(request):
             'message': f'An error occurred: {str(e)}'
         })
 
-
-
+def myAttendance(request):
+    return render(request, 'myAttendance.html')
 
 
 
