@@ -50,8 +50,7 @@ class Attendance(models.Model):
     status = models.CharField(max_length=20, choices=[
         ('present', 'Present'),
         ('absent', 'Absent'),
-        ('late', 'Late')
-    ])
+    ], default='absent')
     
     def __str__(self):
         return f"{self.student.first_name} {self.student.last_name} - {self.class_name} - {self.date}"

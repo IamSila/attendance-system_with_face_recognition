@@ -176,8 +176,11 @@ def MarkAttendance(request, class_name=None):
                     'message': 'No recognized profile found!'
                 })
 
-            # Get the class name from either URL pattern or GET parameters
+            # Get the unit and class names from either URL pattern or GET parameters
+            
             class_name = class_name or request.GET.get('class_name')
+            
+                
             if not class_name:
                 return JsonResponse({
                     'status': 'error',
@@ -225,8 +228,10 @@ def MarkAttendance(request, class_name=None):
                 'message': f'Error marking attendance: {str(e)}'
             })
 
-    # For GET requests, render the template with class name
-    context = {'class_name': class_name} if class_name else {}
+    # For GET requests, render the template with unit and class names
+    context = {
+        'class_name': class_name if class_name else None
+    }
     return render(request, 'markAttendance.html', context)
 
 @login_required
