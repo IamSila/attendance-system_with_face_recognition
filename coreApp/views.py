@@ -143,6 +143,7 @@ def get_tasks(request):
             'start': task.start_time.isoformat(),
             'end': task.end_time.isoformat(),
             'courseCode': task.courseCode,
+            'location' : task.location,
         })
     return JsonResponse(tasks_list, safe=False)
 @login_required
@@ -456,7 +457,10 @@ def createTask(request):
     return render(request, 'admin/createTask.html') 
 
 def attendanceRecords(request):
-    return render(request, 'admin/attendanceRecords.html')
+    records = Attendance.objects.all()
+    context = {}
+    context['records'] = records
+    return render(request, 'admin/attendanceRecords.html', context)
 
 def update(request, username):
     updateStudent = get_object_or_404(StudentProfile, username=username)

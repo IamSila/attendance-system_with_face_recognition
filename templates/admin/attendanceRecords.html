@@ -55,171 +55,6 @@
             </div>
         </div>
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- <div class="results">
-                    
-            <h1>Attendance Records Management</h1>
-            
-            <div class="controls">
-                <label for="date">Select Date:</label>
-                <input type="date" id="date" name="date">
-                <button onclick="filterRecords()">Filter</button>
-            </div>
-            
-            <table id="attendanceTable">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Course</th>
-                        <th>Class</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Admin actions</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>S001</td>
-                        <td>John Smith</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <!-- <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" selected class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> 
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                        <td><button id="viewActions" class="btn btn-actions">View action</button></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>S002</td>
-                        <td>Emily Johnson</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" selected class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> 
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S003</td>
-                        <td>Michael Brown</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" selected class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> 
-                        <td>absent</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S004</td>
-                        <td>Sarah Williams</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" selected class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused">Excused</option>
-                            </select>
-                        </td> 
-                        <td>Present</td>
-                        <td>
-                            <a href=""><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S005</td>
-                        <td>David Lee</td>
-                        <td>Computer Science</td>
-                        <td>Grade 10-A</td>
-                        <td>2023-10-15</td>
-                        <td>
-                            <select class="status-select" onchange="updateStatus(this)">
-                                <option value="present" class="present">Present</option>
-                                <option value="absent" class="absent">Absent</option>
-                                <option value="late" class="late">Late</option>
-                                <option value="excused" selected>Excused</option>
-                            </select>
-                        </td>
-                        <td>Present</td>
-                        <td>
-                            <a href="#"><button class="btn btn-update">Update</button></a>
-                            <a href=""><button class="btn btn-delete">Delete</button></a>
-                            <a href=""><button class="btn btn-view">view</button></a>
-                            <a href=""><button class="btn btn-contact">contact</button></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div id="edits" class="edits hidden">
-                <a href="#"><button class="btn btn-update">Update</button></a>
-                <a href=""><button class="btn btn-delete">Delete</button></a>
-                <a href=""><button class="btn btn-view">view</button></a>
-                <a href=""><button class="btn btn-contact">contact</button></a>
-                <button id="btn-close" class="btn-close"><i class="fa-solid fa-circle-xmark btn"></i></button>
-            </div>
-        </div> -->
 
 
 
@@ -314,7 +149,7 @@
         }
         
         tr:hover {
-            background-color: #f9f9f9;
+            background-color: #3498db;
         }
         
         .present {
@@ -372,47 +207,28 @@
                     <tr>
                         <th>Student Reg No.</th>
                         <th>Student Name</th>
+                        <th>course</th>
                         <th>Class</th>
                         <th>Status</th>
+                        <th>Date</th>
                         <th>Time In</th>
                     </tr>
                 </thead>
                 <tbody>
+                {% for record in records %}
+                        
+                    
                     <tr>
-                        <td>S1001</td>
-                        <td>John Smith</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell present">Present</td>
-                        <td>08:15 AM</td>
+                        <td>{{record.student.username}}</td>
+                        <td>{{record.student.first_name}} {{record.student.middle_name}} {{record.student.last_name}}</td>
+                        <td>{{record.student.course}}</td>
+                        <td>{{record.class_name}}</td>
+                        <td class="status-cell present">{{record.status}}</td>
+                        <td>{{record.date}}</td>
+                        <td>{{record.time}}</td>
                     </tr>
-                    <tr>
-                        <td>S1002</td>
-                        <td>Emily Johnson</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell present">Present</td>
-                        <td>08:05 AM</td>
-                    </tr>
-                    <tr>
-                        <td>S1003</td>
-                        <td>Michael Brown</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell late">Late</td>
-                        <td>09:30 AM</td>
-                    </tr>
-                    <tr>
-                        <td>S1004</td>
-                        <td>Sarah Davis</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell absent">Absent</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>S1005</td>
-                        <td>Robert Wilson</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell present">Present</td>
-                        <td>08:20 AM</td>
-                    </tr>
+                    
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -421,7 +237,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Student ID</th>
+                        <th>Student Reg. No.</th>
                         <th>Student Name</th>
                         <th>Class</th>
                         <th>Mon</th>
@@ -433,10 +249,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in records %}
+                        
                     <tr>
-                        <td>S1001</td>
-                        <td>John Smith</td>
-                        <td>Grade 10-A</td>
+                        <td>{{record.student.username}}</td>
+                        <td>{{record.student.first_name}} {{record.student.middle_name}} {{record.student.last_name}}</td>
+                        <td>{{record.class_name}}</td>
                         <td class="present">P</td>
                         <td class="present">P</td>
                         <td class="present">P</td>
@@ -444,50 +262,8 @@
                         <td class="present">P</td>
                         <td>4/5</td>
                     </tr>
-                    <tr>
-                        <td>S1002</td>
-                        <td>Emily Johnson</td>
-                        <td>Grade 10-A</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td>5/5</td>
-                    </tr>
-                    <tr>
-                        <td>S1003</td>
-                        <td>Michael Brown</td>
-                        <td>Grade 10-A</td>
-                        <td class="absent">A</td>
-                        <td class="present">P</td>
-                        <td class="late">L</td>
-                        <td class="present">P</td>
-                        <td class="absent">A</td>
-                        <td>2/5</td>
-                    </tr>
-                    <tr>
-                        <td>S1004</td>
-                        <td>Sarah Davis</td>
-                        <td>Grade 10-A</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td>5/5</td>
-                    </tr>
-                    <tr>
-                        <td>S1005</td>
-                        <td>Robert Wilson</td>
-                        <td>Grade 10-A</td>
-                        <td class="present">P</td>
-                        <td class="late">L</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td>4/5</td>
-                    </tr>
+                   
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
