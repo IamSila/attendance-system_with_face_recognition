@@ -162,14 +162,18 @@ tr:hover {
 
 .btn-download {
     padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
+    background-color: #4CAF50;
     color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
+    font-size: 16px;
+    margin-top: 20px;
     transition: background-color 0.3s;
+}
+
+.btn-download:hover {
+    background-color: #45a049;
 }
 
 @media (max-width: 768px) {
