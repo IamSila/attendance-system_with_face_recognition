@@ -143,11 +143,12 @@ def get_tasks(request):
             'start': task.start_time.isoformat(),
             'end': task.end_time.isoformat(),
             'courseCode': task.courseCode,
+            'location' : task.location,
         })
     return JsonResponse(tasks_list, safe=False)
 @login_required
 def Planning(request):
-    return render(request, 'planning2.html')
+    return render(request, 'planning3.html')
 
 @login_required
 def Dashboard(request):
@@ -176,8 +177,11 @@ def MarkAttendance(request, class_name=None):
                     'message': 'No recognized profile found!'
                 })
 
-            # Get the class name from either URL pattern or GET parameters
+            # Get the unit and class names from either URL pattern or GET parameters
+            
             class_name = class_name or request.GET.get('class_name')
+            
+                
             if not class_name:
                 return JsonResponse({
                     'status': 'error',
@@ -225,8 +229,10 @@ def MarkAttendance(request, class_name=None):
                 'message': f'Error marking attendance: {str(e)}'
             })
 
-    # For GET requests, render the template with class name
-    context = {'class_name': class_name} if class_name else {}
+    # For GET requests, render the template with unit and class names
+    context = {
+        'class_name': class_name if class_name else None
+    }
     return render(request, 'markAttendance.html', context)
 
 @login_required
@@ -326,3 +332,161 @@ def recognize_face(request):
             'status': 'error',
             'message': f'An error occurred: {str(e)}'
         })
+
+def myAttendance(request):
+    return render(request, 'myAttendance.html')
+
+
+
+# admin section
+
+def customAdmin(request):
+    return render(request, 'admin/adminBase.html')
+
+def studentRecords(request):
+    context = {}
+    students = StudentProfile.objects.all()
+    context['students'] = students
+    return render(request, 'admin/studentRecords.html', context)
+
+def createStudent(request):
+    if request.method == "POST":
+        # Get form data
+        first_name = request.POST.get('first_name')
+        middle_name = request.POST.get('middle_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        course = request.POST.get('course')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        ranking = request.POST.get('ranking')
+        image = request.FILES.get('image')
+
+        user_data_has_error = False
+
+        # Validation checks
+        if User.objects.filter(username=username).exists():
+            user_data_has_error = True
+            messages.error(request, "Reg Number already exists!")
+        
+        if User.objects.filter(email=email).exists():
+            user_data_has_error = True
+            messages.error(request, "Email already exists!")
+        
+        if len(password) < 8:
+            user_data_has_error = True
+            messages.error(request, "Password is too short")
+        
+        # if not image:
+        #     user_data_has_error = True
+        #     messages.error(request, "Please upload a profile image")
+        
+        if user_data_has_error:
+            return redirect('createStudent')
+        
+        try:
+            # Create User object
+            newUser = User.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                email=email,
+                password=password,
+            )
+
+            # Create StudentProfile object
+            student_profile = StudentProfile.objects.create(
+                first_name=first_name,
+                middle_name=middle_name,
+                last_name=last_name,
+                username=username,
+                course=course,
+                phone=phone,
+                email=email,
+                password=password,
+                ranking=ranking,
+                image=image
+            )
+
+            # Save the profile image to student_photos directory
+            student_photos_dir = 'media/student_photos'
+            if not os.path.exists(student_photos_dir):
+                os.makedirs(student_photos_dir)
+            
+            # Save the image with username as filename
+            file_extension = os.path.splitext(image.name)[1]
+            student_photo_path = os.path.join(student_photos_dir, f"{username}{file_extension}")
+            with open(student_photo_path, 'wb+') as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+
+            messages.success(request, "Student profile created successfully!")
+            return redirect('createStudent')
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('createStudent')
+
+    return render(request, 'admin/createStudent.html')
+
+def createTask(request):
+    # Task Creation
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        courseCode = request.POST.get('courseCode')
+
+        try:
+            new_task = Task(
+                title=title,
+                description=description,
+                start_time=start_time,
+                end_time=end_time,
+                courseCode=courseCode
+            )
+            new_task.save()
+            messages.success(request, "Task Added Successfully")
+        except Exception as e:
+            messages.error(request, f"Error saving task: {str(e)}")
+
+        return redirect('createTask')
+
+    return render(request, 'admin/createTask.html') 
+
+def attendanceRecords(request):
+    records = Attendance.objects.all()
+    context = {}
+    context['records'] = records
+    return render(request, 'admin/attendanceRecords.html', context)
+
+def update(request, username):
+    updateStudent = get_object_or_404(StudentProfile, username=username)
+    context = {}
+    context['updateStudent'] = updateStudent
+    return render(request, 'admin/updateStudent.html', context)
+
+def delete(request, username):
+    student_to_delete = get_object_or_404(StudentProfile, username=username)
+    if request.method == 'POST':
+        confirmation_username = request.POST.get('confirmation_username')
+        if (confirmation_username == username):
+            deleteStudent = get_object_or_404(StudentProfile, username=confirmation_username)
+            deleteStudent.delete()
+            messages.success(request, f"Student {student_to_delete} has been successfully deleted!")
+            return redirect('studentRecords')
+        else:
+            messages.error(request, f"Student deletion for {student_to_delete} failed. Please enter the exact username to confirm deletion!")
+            # return redirect('deletePage')
+            
+        # except Exception as e:
+        #     messages.error(request, f"Error deleting student: {str(e)}")
+
+    # If GET request, show confirmation page
+    student = get_object_or_404(StudentProfile, username=username)
+    return render(request, 'admin/delete.html', {'student': student})
+
+def deleteView(request):
+    return render(request, 'admin/delete.html')

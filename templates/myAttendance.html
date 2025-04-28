@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/myAttendance.css' %}">
+{% endblock css %}
+
+
+
+
+{% block content %}
+    <!-- start of center part [studentTables] -->
+    <div class="studentQueries">
+        <div class="heading">
+            
+            <div class="filters">
+                <form action="">
+                <label for="course">Unit: </label>
+                <select name="course" id="">
+                    <option value="" selected>Choose course</option>
+                    <option value="">computer science</option>
+                    <option value="">Mechanical Engineering</option>
+                    <option value="">Electrical Engineering</option>
+                    <option value="">Psychology and counselling</option>
+                    <option value="">Education</option>
+                </select>
+
+                <label for="course">class: </label>
+                <select name="course" id="">
+                    <option value="">Choose a class</option>
+                    <option value="">Software management</option>
+                    <option value="">Web development</option>
+                    <option value="">Artificial Intelligence</option>
+                    <option value="">COA</option>
+                    <option value="">Networking</option>
+                    <option value="">Network Management</option>
+                    <option value="">Data Structures and Algorithms</option>
+                    <option value="">C Programming</option>
+                    <option value="">Object Oriented programming</option>
+                </select>
+
+                
+                <!-- submit button -->
+                 <button type="submit">Fetch</button>
+                 
+                </form>
+                
+                
+
+            </div>
+        </div>
+
+
+    <div class="container">
+        <h1>Student Attendance Records</h1>
+        
+        <div class="view-options">
+            <button class="view-btn active" id="daily-btn">Daily View</button>
+            <button class="view-btn" id="weekly-btn">Weekly View</button>
+            <button class="view-btn" id="monthly-btn">Monthly View</button>
+        </div>
+        
+        <div class="date-navigation">
+            <button class="nav-btn" id="prev-btn">&#9664;</button>
+            <div class="current-period" id="current-period">Monday, May 15, 2023</div>
+            <button class="nav-btn" id="next-btn">&#9654;</button>
+        </div>
+        
+        <div id="daily-view">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Reg No.</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                        <th>Time In</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S1001</td>
+                        <td>John Smith</td>
+                        <td>Grade 10-A</td>
+                        <td class="status-cell present">Present</td>
+                        <td>08:15 AM</td>
+                    </tr>
+                    <tr>
+                        <td>S1002</td>
+                        <td>Emily Johnson</td>
+                        <td>Grade 10-A</td>
+                        <td class="status-cell present">Present</td>
+                        <td>08:05 AM</td>
+                    </tr>
+                    <tr>
+                        <td>S1003</td>
+                        <td>Michael Brown</td>
+                        <td>Grade 10-A</td>
+                        <td class="status-cell late">Late</td>
+                        <td>09:30 AM</td>
+                    </tr>
+                    <tr>
+                        <td>S1004</td>
+                        <td>Sarah Davis</td>
+                        <td>Grade 10-A</td>
+                        <td class="status-cell absent">Absent</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>S1005</td>
+                        <td>Robert Wilson</td>
+                        <td>Grade 10-A</td>
+                        <td class="status-cell present">Present</td>
+                        <td>08:20 AM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="weekly-view" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S1001</td>
+                        <td>John Smith</td>
+                        <td>Grade 10-A</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="late">L</td>
+                        <td class="present">P</td>
+                        <td>4/5</td>
+                    </tr>
+                    <tr>
+                        <td>S1002</td>
+                        <td>Emily Johnson</td>
+                        <td>Grade 10-A</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td>5/5</td>
+                    </tr>
+                    <tr>
+                        <td>S1003</td>
+                        <td>Michael Brown</td>
+                        <td>Grade 10-A</td>
+                        <td class="absent">A</td>
+                        <td class="present">P</td>
+                        <td class="late">L</td>
+                        <td class="present">P</td>
+                        <td class="absent">A</td>
+                        <td>2/5</td>
+                    </tr>
+                    <tr>
+                        <td>S1004</td>
+                        <td>Sarah Davis</td>
+                        <td>Grade 10-A</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td>5/5</td>
+                    </tr>
+                    <tr>
+                        <td>S1005</td>
+                        <td>Robert Wilson</td>
+                        <td>Grade 10-A</td>
+                        <td class="present">P</td>
+                        <td class="late">L</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td class="present">P</td>
+                        <td>4/5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="monthly-view" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Late</th>
+                        <th>Attendance %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S1001</td>
+                        <td>John Smith</td>
+                        <td>Grade 10-A</td>
+                        <td>18</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>84%</td>
+                    </tr>
+                    <tr>
+                        <td>S1002</td>
+                        <td>Emily Johnson</td>
+                        <td>Grade 10-A</td>
+                        <td>22</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>96%</td>
+                    </tr>
+                    <tr>
+                        <td>S1003</td>
+                        <td>Michael Brown</td>
+                        <td>Grade 10-A</td>
+                        <td>15</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>65%</td>
+                    </tr>
+                    <tr>
+                        <td>S1004</td>
+                        <td>Sarah Davis</td>
+                        <td>Grade 10-A</td>
+                        <td>20</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>87%</td>
+                    </tr>
+                    <tr>
+                        <td>S1005</td>
+                        <td>Robert Wilson</td>
+                        <td>Grade 10-A</td>
+                        <td>19</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>83%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <button class="btn-download">download</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // View switching elements
+            const dailyBtn = document.getElementById('daily-btn');
+            const weeklyBtn = document.getElementById('weekly-btn');
+            const monthlyBtn = document.getElementById('monthly-btn');
+            
+            const dailyView = document.getElementById('daily-view');
+            const weeklyView = document.getElementById('weekly-view');
+            const monthlyView = document.getElementById('monthly-view');
+            
+            const currentPeriod = document.getElementById('current-period');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            let currentDate = new Date();
+            let currentView = 'daily';
+            
+            // Update date display based on current view
+            function updateDateDisplay() {
+                if (currentView === 'daily') {
+                    currentPeriod.textContent = currentDate.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                } else if (currentView === 'weekly') {
+                    const weekStart = new Date(currentDate);
+                    weekStart.setDate(currentDate.getDate() - currentDate.getDay());
+                    
+                    const weekEnd = new Date(weekStart);
+                    weekEnd.setDate(weekStart.getDate() + 6);
+                    
+                    currentPeriod.textContent = `Week of ${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                } else if (currentView === 'monthly') {
+                    currentPeriod.textContent = currentDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long' 
+                    });
+                }
+            }
+            
+            // Change between daily, weekly, monthly views
+            function changeView(view) {
+                currentView = view;
+                
+                // Update button states
+                dailyBtn.classList.remove('active');
+                weeklyBtn.classList.remove('active');
+                monthlyBtn.classList.remove('active');
+                
+                // Hide all views
+                dailyView.style.display = 'none';
+                weeklyView.style.display = 'none';
+                monthlyView.style.display = 'none';
+                
+                // Show selected view and activate its button
+                if (view === 'daily') {
+                    dailyView.style.display = 'block';
+                    dailyBtn.classList.add('active');
+                } else if (view === 'weekly') {
+                    weeklyView.style.display = 'block';
+                    weeklyBtn.classList.add('active');
+                } else if (view === 'monthly') {
+                    monthlyView.style.display = 'block';
+                    monthlyBtn.classList.add('active');
+                }
+                
+                updateDateDisplay();
+            }
+            
+            // Navigate between time periods
+            function navigate(direction) {
+                if (currentView === 'daily') {
+                    currentDate.setDate(currentDate.getDate() + direction);
+                } else if (currentView === 'weekly') {
+                    currentDate.setDate(currentDate.getDate() + (direction * 7));
+                } else if (currentView === 'monthly') {
+                    currentDate.setMonth(currentDate.getMonth() + direction);
+                }
+                
+                updateDateDisplay();
+            }
+            
+            // Download functionality
+            document.querySelector('.btn-download').addEventListener('click', function() {
+                // Determine which view is currently active
+                let table;
+                let filename;
+                
+                if (currentView === 'daily') {
+                    table = document.getElementById('daily-view').querySelector('table');
+                    filename = `daily_attendance_${currentDate.toISOString().split('T')[0]}.csv`;
+                } else if (currentView === 'weekly') {
+                    table = document.getElementById('weekly-view').querySelector('table');
+                    const weekStart = new Date(currentDate);
+                    weekStart.setDate(currentDate.getDate() - currentDate.getDay());
+                    filename = `weekly_attendance_${weekStart.toISOString().split('T')[0]}.csv`;
+                } else {
+                    table = document.getElementById('monthly-view').querySelector('table');
+                    filename = `monthly_attendance_${currentDate.getFullYear()}-${currentDate.getMonth()+1}.csv`;
+                }
+        
+                // Convert table to CSV
+                const csv = tableToCSV(table);
+                
+                // Download the CSV file
+                downloadCSV(csv, filename);
+            });
+        
+            // Helper function to convert table to CSV
+            function tableToCSV(table) {
+                const rows = table.querySelectorAll('tr');
+                let csv = [];
+                
+                for (let i = 0; i < rows.length; i++) {
+                    const row = [], cols = rows[i].querySelectorAll('td, th');
+                    
+                    for (let j = 0; j < cols.length; j++) {
+                        // Clean innerText to remove multiple spaces and newlines
+                        let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ');
+                        
+                        // Escape double quotes
+                        data = data.replace(/"/g, '""');
+                        
+                        // Wrap in double quotes if data contains comma
+                        if (data.indexOf(',') >= 0 || data.indexOf('"') >= 0) {
+                            data = `"${data}"`;
+                        }
+                        row.push(data);
+                    }
+                    
+                    csv.push(row.join(','));
+                }
+                
+                return csv.join('\n');
+            }
+        
+            // Helper function to download CSV
+            function downloadCSV(csv, filename) {
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                
+                if (navigator.msSaveBlob) { // IE 10+
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    // Create a link to the file
+                    link.href = URL.createObjectURL(blob);
+                    link.setAttribute('download', filename);
+                    link.style.visibility = 'hidden';
+                    
+                    // Add the link to DOM and click it
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+            
+            // Event listeners for view switching
+            dailyBtn.addEventListener('click', () => changeView('daily'));
+            weeklyBtn.addEventListener('click', () => changeView('weekly'));
+            monthlyBtn.addEventListener('click', () => changeView('monthly'));
+            
+            // Event listeners for navigation
+            prevBtn.addEventListener('click', () => navigate(-1));
+            nextBtn.addEventListener('click', () => navigate(1));
+            
+            // Initialize
+            changeView('daily');
+        });
+    </script>
+</body>
+</html>
+    </div>
+
+    <!-- end of studentQueries [center part] -->
+    <div class="rightSideNav"></div>
+{% endblock content %}

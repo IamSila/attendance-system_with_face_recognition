@@ -1,0 +1,118 @@
+.delete {
+    width: 70%;
+    height: 100vh;
+    box-shadow: 0 0 1px 3px rgb(90, 88, 88);
+    padding: 15px;
+    margin-left: 350px;
+    margin-top: 10px;
+    border: 5px solid white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+.delete .deleteDetails {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px firebrick solid; */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 2px 3px firebrick;
+}
+
+.delete .deleteDetails .warning {
+    /* background-color: rgb(126, 84, 84);*/
+    background-color: firebrick;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.messages {
+    background-color: whitesmoke;
+    box-shadow: 0 0 2px 3px green;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.fa-message {
+    color: white;
+    background-color: green;
+    margin: 5px;
+    border-radius: 50%;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+
+}
+.delete .deleteDetails .warning strong {
+    color: black;
+    font-size: 22px;
+}
+
+.delete .deleteDetails .warning .on_success {
+    color: green;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.delete .deleteDetails .confirmation_details {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete .deleteDetails .confirmation_details label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: firebrick;
+    font-size: 18px;
+}
+
+.delete .deleteDetails .confirmation_details input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s;
+    box-sizing: border-box;
+}
+
+
+
+.delete .deleteDetails .btn-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete .deleteDetails .btn-submit .btn {
+    background-color: firebrick;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.delete .deleteDetails .btn-submit .btn:hover {
+    background-color: firebrick;
+    transform: scale(1.05);
+}

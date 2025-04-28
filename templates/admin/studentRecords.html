@@ -1,0 +1,152 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- start of center part [studentTables] -->
+    <div class="studentQueries">
+        <div class="heading">
+            <div class="title">
+                <h1>Attendance Management</h1>
+                <div class="actionButtons">
+                    <a href="{% url 'createStudent' %}" class="btn-add"><button><i class="fa-solid fa-plus"></i>Add Student Record</button></a>
+                    <button>Import</button>
+                    <button>Download</button>
+                </div>
+            </div>
+            <div class="filters">
+                <form action="">
+                <label for="course">course: </label>
+                <select name="course" id="">
+                    <option value="" selected>Choose course</option>
+                    <option value="">computer science</option>
+                    <option value="">Mechanical Engineering</option>
+                    <option value="">Electrical Engineering</option>
+                    <option value="">Psychology and counselling</option>
+                    <option value="">Education</option>
+                </select>
+
+                <label for="course">class: </label>
+                <select name="course" id="">
+                    <option value="">Choose a class</option>
+                    <option value="">Software management</option>
+                    <option value="">Web development</option>
+                    <option value="">Artificial Intelligence</option>
+                    <option value="">COA</option>
+                    <option value="">Networking</option>
+                    <option value="">Network Management</option>
+                    <option value="">Data Structures and Algorithms</option>
+                    <option value="">C Programming</option>
+                    <option value="">Object Oriented programming</option>
+                </select>
+
+                <label for="regNumber">Reg No.:</label>
+                    <select name="" id="">
+                        <option value="">j17-0982-2020</option>
+                        <option value="">spa-3423-2020</option>
+                    </select>
+                
+                <!-- submit button -->
+                 <button type="submit">Fetch</button>
+                </form>
+
+                
+
+            </div>
+        </div>
+
+
+        <div class="results">
+                    
+            <h1>Student Records Management</h1>
+            
+            <div class="controls">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date">
+                <button onclick="filterRecords()">Filter</button>
+            </div>
+            
+            <table id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Year</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Course</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Admin actions</th>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for student in students %}
+
+                    <tr>
+                        <td>{{ student.username }}</td>
+                        <!-- <td class="profilePhoto"></td> -->
+                         <td>2nd</td>
+                        <td>{{ student.first_name }}</td>
+                        <td>{{ student.middle_name }}</td>
+                        <td>{{ student.last_name }}</td>
+                        <td>{{ student.course }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>Active</td> 
+                        <td>
+                            <a href="{% url 'update' student.username %}" class="btn btn-update"><i class="fa-solid fa-file-pen"></i></a>
+                            <a href="{% url 'delete' student.username %}" class="btn btn-delete"><i class="fa-solid fa-trash"></i></a>
+                            <a href="" class="btn btn-view"><i class="fa-solid fa-eye"></i></a>
+                            <a href="mailto:{{student.email}}" class="btn btn-contact"><i class="fa-solid fa-envelope"></i></a>
+                        </td>
+                        <!-- <td><button id="viewActions" class="btn btn-actions"><i class="fa-solid fa-arrows-to-eye"></i></button></td> -->
+                        
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- <div class="edits hidden">
+                <a href=""><button class="btn btn-update"><i class="fa-solid fa-file-pen"></i></button></a>
+                <a href=""><button class="btn btn-delete"><i class="fa-solid fa-trash"></i></button></a>
+                <a href=""><button class="btn btn-view"><i class="fa-solid fa-eye"></i></button></a>
+                <a href=""><button class="btn btn-contact"><i class="fa-solid fa-envelope"></i></button></a>
+                <a href=""><button class="btn btn-close"><i class="fa-solid fa-circle-xmark"></i></button></a>
+            </div> -->
+        </div>
+    <!-- <script>
+        function updateStatus(selectElement) {
+            // Remove all color classes first
+            selectElement.classList.remove('present', 'absent', 'late');
+            
+            // Add the appropriate class based on selected value
+            if (selectElement.value === 'present') {
+                selectElement.classList.add('present');
+            } else if (selectElement.value === 'absent') {
+                selectElement.classList.add('absent');
+            } else if (selectElement.value === 'late') {
+                selectElement.classList.add('late');
+            }
+            
+            // In a real application, you would save this change to a database
+            console.log('Status updated to:', selectElement.value);
+        }
+        
+        function filterRecords() {
+            const date = document.getElementById('date').value;
+            // In a real application, this would filter the table based on the selected date
+            alert('Filtering for date: ' + date + '\n(Actual filtering would be implemented with server-side code or more JavaScript)');
+        }
+    </script> -->
+
+        </div>
+    </div>
+
+    <!-- end of studentQueries [center part] -->
+    <div class="rightSideNav"></div>
+{% endblock content %}

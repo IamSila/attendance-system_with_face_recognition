@@ -15,4 +15,13 @@ urlpatterns = [
     path('markAttendance/', views.MarkAttendance, name='markAttendance'),
     path('mark-attendance/<str:class_name>/', views.MarkAttendance, name='attendClass'),
     path('recognize-face/', views.recognize_face, name='recognize_face'),
+    path('myAttendance/', views.myAttendance, name='myAttendance'),
+    path('customAdmin/', views.customAdmin, name='customAdmin'),
+    path('customAdmin/studentRecords/', views.studentRecords, name='studentRecords'),
+    path('customAdmin/createStudent/', views.createStudent, name='createStudent'),
+    path('customAdmin/createTask/', views.createTask, name='createTask'),
+    path('customAdmin/attendanceRecords/', views.attendanceRecords, name='attendanceRecords'),
+    path('customAdmin/update/<str:username>/', views.update, name='update'),
+    path('customAdmin/delete/<str:username>/', views.delete, name='delete'),
+    path('customAdmin/delete/', views.deleteView, name='deletePage'),
 ]

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Calendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/planning2.css' %}">
+    {% endblock css %}
+
+    {% block content %}
+    
+        <div class="calendar-container" >
+            <center><h1>Your School Calendar</h1></center>
+            <div id="calendar"></div>
+
+            <div id="eventDetails"></div>
+        </div>
+
+        
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            
+            // Get the current user's username from Django template
+            const username = "{{ request.user.username }}";
+            
+            // Initialize FullCalendar
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: {
+                    url: '/api/tasks/',
+                    method: 'GET',
+                    success: function(response) {
+                        // Filter events where event's course_code matches the beginning of username
+                        return response.filter(function(event) {
+                            return username.startsWith(event.courseCode);
+                        });
+                    },
+                    failure: function() {
+                        alert('There was an error fetching events!');
+                    }
+                },
+                eventClick: function(info) {
+                    info.jsEvent.preventDefault();
+                    
+                    const eventDetailsCard = document.getElementById('eventDetails');
+                    
+                    eventDetailsCard.innerHTML = `
+                        <div class="event-card">
+                            <h3>${info.event.title}</h3>
+                            ${info.event.extendedProps.description ? `<p><strong>Topic:</strong> ${info.event.extendedProps.description}</p>` : ''}
+                            <p><strong>Start:</strong> ${info.event.start.toLocaleString()}</p>
+                            ${info.event.end ? `<p><strong>End:</strong> ${info.event.end.toLocaleString()}</p>` : ''}
+                            ${info.event.extendedProps.location ? `<p><strong>Location:</strong> ${info.event.extendedProps.location}</p>` : ''}
+                            ${info.event.extendedProps.courseCode ? `<p><strong>Course Code:</strong> ${info.event.extendedProps.courseCode}</p>` : ''}
+                        </div>
+                    `;
+                    
+                    eventDetailsCard.style.display = 'block';
+                    
+                    const closeButton = document.createElement('button');
+                    closeButton.textContent = 'Close';
+                    closeButton.onclick = function() {
+                        eventDetailsCard.style.display = 'none';
+                    };
+                    eventDetailsCard.querySelector('.event-card').appendChild(closeButton);
+                }
+            });
+        
+            calendar.render();
+        });
+    </script>
+    {% endblock content %}
+

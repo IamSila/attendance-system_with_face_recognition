@@ -1,0 +1,92 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static '/css/admin/createRecords.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class= "createRecords">
+
+        <!-- add new Students -->
+        <div class="addStudents form-container">
+            <h1>Add Student Record</h1>
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <center><h1 style="color: green;">{{message}}</h1></center>
+                        {% else %}
+                            <center><h1 style="color: firebrick;">{{message}}</h1></center>
+                        {% endif %}
+                    {% endfor %}
+                    
+                {% endif %}
+            </div>
+            <form id="studentForm" method="POST">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" name="first_name" placeholder="John" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" name="middle_name" placeholder="Jane">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" name="last_name" placeholder="Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username" class="required">Username</label>
+                        <input type="text" name="username" placeholder="a12-3322-1990" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" name="email" placeholder="abc@gmail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <input type="password" name="password" placeholder="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <input type="tel" name="phone" placeholder="0712345678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course" class="required">Course</label>
+                        <select id="course" name="course">
+                            <option value="">Select Course</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="ENG">Engineering</option>
+                            <option value="BUS">Business</option>
+                            <option value="MED">Medicine</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ranking">Ranking</label>
+                        <input type="number" id="ranking" name="ranking" min="1">
+                    </div>
+                    
+                    <div class="for-group">
+                        <label for="image">Profile Image</label>
+                        <input type="file" name="image" accept="image/*" required>
+                    </div>
+                </div>
+                
+                <button type="submit">Register Student</button>
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}

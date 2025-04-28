@@ -1,0 +1,144 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static '/css/admin/createRecords.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class= "createRecords">
+        <div class="addTasks form-container">
+            <h1>Add Timetable Events</h1>
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <center><h1 style="color: green;"">{{message}}</h1></center>
+                        {% endif %}
+                    {% endfor %}
+                    
+                {% endif %}
+            </div>
+            <form id="taskForm" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Unit Title*</label>
+                    <input type="text" id="title" name="title" placeholder="Enter Unit name here" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Topic Description</label>
+                    <textarea id="description" name="description" placeholder="Enter the topic to be covered"></textarea>
+                </div>
+                
+                <div class="time-fields">
+                    <div class="form-group">
+                        <label for="startTime">Start Time*</label>
+                        <input type="datetime-local" id="startTime" name="start_time" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endTime">End Time*</label>
+                        <input type="datetime-local" id="endTime" name="end_time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courseCode">Course Code*</label>
+                    <input type="text" id="courseCode" name="courseCode" placeholder="e.g., j17 or spa" required>
+                </div>
+                
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+        <!-- end add tasks -->
+
+
+        <!-- add new Students -->
+        <div class="addStudents form-container">
+            <h1>Student Registration</h1>
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <center><h1 style="color: green;"">{{message}}</h1></center>
+                        {% endif %}
+                    {% endfor %}
+                    
+                {% endif %}
+            </div>
+            <form id="studentForm" method="POST">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" id="firstName" name="firstName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" id="lastName" name="lastName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username" class="required">Username</label>
+                        <input type="text" id="username" name="username">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course" class="required">Course</label>
+                        <select id="course" name="course">
+                            <option value="">Select Course</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="ENG">Engineering</option>
+                            <option value="BUS">Business</option>
+                            <option value="MED">Medicine</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ranking">Ranking</label>
+                        <input type="number" id="ranking" name="ranking" min="1">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Profile Photo</label>
+                        <div class="photo-upload">
+                            <div class="photo-preview" id="photoPreview">
+                                <span style="color: #999;">Preview</span>
+                                <img id="previewImage" alt="Profile Photo Preview">
+                            </div>
+                            <label>
+                                <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit">Register Student</button>
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}

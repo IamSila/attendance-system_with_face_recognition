@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- cdn link for all favicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static '/css/admin/admin.css' %}">
+    
+    {% block css %}
+        
+    {% endblock css %}
+   
+
+    <style>
+        
+        table {
+            width: 100%;
+            font-size: 16px;
+            border-collapse: collapse;
+            margin-top: 20px;
+            
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: black;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr {
+            transition: 1s;
+        }
+        tr:hover {
+            transform: scale(1.02);
+            background-color: gray;
+            color: white;
+            
+        }
+        .profilePhoto {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+        }
+        
+        .present {
+            color: green;
+        }
+        .absent {
+            color: red;
+        }
+        .late {
+            color: orange;
+        }
+        .status-select {
+            padding: 3px;
+        }
+        table .btn {
+            padding: 5px;
+            color: white;
+            font-size: 14px;
+            border-radius: 8px;
+            border: none;
+            margin-right: 5px;
+            transition: 1s;
+        }
+
+        table .btn:hover {
+            transform: scale(1.15);
+        }
+
+        table .btn-update {
+            background-color: green;
+        }
+        table .btn-delete {
+            background-color: firebrick;
+        }
+        table .btn-view {
+            background-color: orange;
+        }
+        table .btn-contact {
+            background-color: rgb(0, 132, 255);
+        }
+    </style>
+</head>
+<body>
+    <section id="adminDash">
+        <div class="leftSideNav">
+            <center><h2>Admin Dashboard</h1></center>
+            <div class="sideNavButtons1">
+                <ul>
+                    <a href=""><li><i class="fa-solid fa-rectangle-list"></i>Dashboard</li></a>
+                    <!-- <a href=""><li><i class="fa-solid fa-graduation-cap"></i>Create new Records</li></a> -->
+                    <a href="{% url 'studentRecords' %}"><li><i class="fa-solid fa-graduation-cap"></i>Students Records</li></a>
+                    <a href="{% url 'attendanceRecords' %}"><li><i class="fa-solid fa-book-open-reader"></i>Attendance Records</li></a>
+                    <a href=""><li><i class="fa-solid fa-chart-line"></i>Analytics</li></a>
+                </ul>
+            </div>
+            <hr>
+            <div class="sideNavButtons2">
+                <ul>
+                    
+                    <a href=""><li><i class="fa-solid fa-comments"></i>Notifications</li></a>
+                    <a href=""><li><i class="fa-solid fa-circle-question"></i>Help & Support</li></a>
+                    <a href=""><li><i class="fa-solid fa-gear"></i>Settings</li></a>
+                </ul>
+            </div>
+
+            
+        </div>
+
+
+        <!-- end leftSideNav -->
+
+        {% block content %}
+            
+        {% endblock content %}
+    </section>
+
+
+
+    <script src="{% static '/js/admin.js' %}"></script>
+</body>
+</html>

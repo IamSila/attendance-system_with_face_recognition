@@ -1,0 +1,129 @@
+{% extends 'admin/adminBase.html' %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/admin/update.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class= "updateRecords">
+        <!-- <div class="addTasks form-container">
+            <h1>Add Timetable Events</h1>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="title">Unit Title*</label>
+                    <input type="text" id="title" name="title" placeholder="Enter Unit name here" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Topic Description</label>
+                    <textarea id="description" name="description" placeholder="Enter the topic to be covered"></textarea>
+                </div>
+                
+                <div class="time-fields">
+                    <div class="form-group">
+                        <label for="startTime">Start Time*</label>
+                        <input type="datetime-local" id="startTime" name="startTime" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endTime">End Time*</label>
+                        <input type="datetime-local" id="endTime" name="endTime" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courseCode">Course Code*</label>
+                    <input type="text" id="courseCode" name="courseCode" placeholder="e.g., j17 or spa" required>
+                </div>
+                
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+        end add tasks -->
+
+
+        <!-- add new Students -->
+        <div class="updateStudent form-container">
+            <h1>Editing student details</h1>
+            <form id="studentForm">
+                {% csrf_token %}
+                {% if updateStudent %}
+                    
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" id="firstName" name="first_name" value="{{updateStudent.first_name}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middle_name" value="{{updateStudent.middle_name}}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" id="lastName" name="last_name" value="{{updateStudent.last_name}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username" class="required">Username</label>
+                        <input type="text" id="username" name="username" value="{{updateStudent.username}}" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" name="email" value="{{updateStudent.email}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <input type="password" id="password" name="password" value="{{updateStudent.password}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" value="{{updateStudent.phone}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course" class="required">Course</label>
+                        <select id="course" name="course" required>
+                            <option value="">Select Course</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="ENG">Engineering</option>
+                            <option value="BUS">Business</option>
+                            <option value="MED">Medicine</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ranking">Ranking</label>
+                        <input type="number" id="ranking" name="ranking" value="{{updateStudent.ranking}}" min="1">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Profile Photo</label>
+                        <div class="photo-upload">
+                            <div class="photo-preview" id="photoPreview">
+                                <span style="color: #999;">Preview</span>
+                                <img id="previewImage" alt="Profile Photo Preview">
+                            </div>
+                            <label>
+                                <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <button type="submit">update</button>
+                
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}
