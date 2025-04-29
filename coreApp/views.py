@@ -531,6 +531,31 @@ def attendanceRecords(request):
 def update(request, username):
     updateStudent = get_object_or_404(StudentProfile, username=username)
     context = {}
+
+    if request.method == 'POST':
+        updateStudent.first_name=request.POST.get('first_name')
+        updateStudent.middle_name=request.POST.get('middle_name')
+        updateStudent.last_name=request.POST.get('last_name')
+        updateStudent.username=request.POST.get('username')
+        updateStudent.course=request.POST.get('course')
+        updateStudent.phone=request.POST.get('phone')
+        updateStudent.email=request.POST.get('email')
+        updateStudent.password=request.POST.get('password')
+        updateStudent.ranking=request.POST.get('ranking')
+
+        new_profile_photo = request.FILES.get('image')  # Use FILES for image uploads
+
+        if new_profile_photo:
+            # If a new image is uploaded, update the field
+            updateStudent.image = new_profile_photo
+        else:
+            # If no new image is provided, keep the existing image
+            # This line isn't necessary unless you overwrite the field elsewhere
+            pass
+        updateStudent.save()
+
+
+
     context['updateStudent'] = updateStudent
     return render(request, 'admin/updateStudent.html', context)
 
