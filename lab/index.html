@@ -1,0 +1,466 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/markAttendance.css' %}">
+    <style>
+        .mark-attendance-btn {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .mark-attendance-btn:hover {
+            background-color: rgb(11, 132, 189);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .mark-attendance-btn:active {
+            transform: translateY(0);
+        }
+
+        .mark-attendance-btn:disabled {
+            background-color: #f0f0f0;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .mark-attendance-btn-container {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .markAttendance-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .markAttendance-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 20px 0;
+        }
+
+        #video, #preview {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #retake-btn {
+            background-color: #f44336 !important;
+        }
+
+        #retake-btn:hover {
+            background-color: #da190b !important;
+        }
+
+        #message-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #message-container.success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        #message-container.error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+
+        #message-container.warning {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="events">
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>No class to mark</button>
+        </a>
+    </div>
+
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>No class to mark</button>
+        </a>
+    </div>
+
+    <div class="event-box">
+        <h3 class="event-name">No class at this time</h3>
+        <div class="event-time">
+            <p></p>
+            <p></p>
+        </div>
+        <a href="#" class="mark-attendance-btn-container">
+            <button class="mark-attendance-btn" disabled>No class to mark</button>
+        </a>
+    </div>
+</div>
+
+<div class="markAttendance-section">
+    <h2>Mark Attendance for {{ class_name }}</h2>
+    
+    <div class="camera-container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <div class="recognition-status" style="display: none;">
+            <p id="status-text"></p>
+        </div>
+    </div>
+
+    <div class="preview-container" style="display: none;">
+        <img id="preview" src="" alt="Captured photo">
+        <div class="button-group">
+            <button id="retake-btn" class="btn retake-btn">Retake Photo</button>
+            <button id="submit-btn" class="btn submit-btn">Submit Attendance</button>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button id="capture-btn" class="btn capture-btn">Capture Photo</button>
+    </div>
+
+    <form id="attendance-form" method="POST" action="{% url 'markAttendance' %}?class_name={{ class_name }}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="captured_image" id="captured_image">
+    </form>
+
+    <div id="message-container" style="display: none;">
+        <p id="message-text"></p>
+    </div>
+</div>
+
+<script>
+    let stream = null;
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const preview = document.getElementById('preview');
+    const captureBtn = document.getElementById('capture-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const form = document.getElementById('attendance-form');
+    const messageContainer = document.getElementById('message-container');
+    const messageText = document.getElementById('message-text');
+    const statusContainer = document.querySelector('.recognition-status');
+    const statusText = document.getElementById('status-text');
+    const previewContainer = document.querySelector('.preview-container');
+
+    // Function to show recognition status
+    function showRecognitionStatus(message, type) {
+        statusContainer.style.display = 'block';
+        statusContainer.className = `recognition-status ${type}`;
+        statusText.textContent = message;
+    }
+
+    // Function to show message
+    function showMessage(message, type) {
+        messageContainer.style.display = 'block';
+        messageContainer.className = type;
+        messageText.textContent = message;
+    }
+
+    // Start camera
+    async function startCamera() {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            showMessage('Error accessing camera: ' + err.message, 'error');
+        }
+    }
+
+    // Stop camera
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+    }
+
+    // Capture photo
+    captureBtn.addEventListener('click', () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        preview.src = canvas.toDataURL('image/jpeg');
+        previewContainer.style.display = 'block';
+        captureBtn.style.display = 'none';
+        stopCamera();
+    });
+
+    // Retake photo
+    retakeBtn.addEventListener('click', () => {
+        previewContainer.style.display = 'none';
+        captureBtn.style.display = 'block';
+        startCamera();
+    });
+
+    // Submit attendance
+    submitBtn.addEventListener('click', async () => {
+        try {
+            // Convert canvas to blob
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+            const formData = new FormData();
+            formData.append('captured_image', blob, 'captured.jpg');
+
+            // First, recognize face
+            const recognitionResponse = await fetch('/recognize-face/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            });
+
+            const recognitionData = await recognitionResponse.json();
+            
+            if (recognitionData.status === 'success') {
+                showRecognitionStatus(recognitionData.message, 'success');
+                
+                // If face is recognized, submit attendance
+                const attendanceResponse = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+
+                const attendanceData = await attendanceResponse.json();
+                showMessage(attendanceData.message, attendanceData.status);
+
+                if (attendanceData.status === 'success') {
+                    setTimeout(() => {
+                        window.location.href = '/dashboard/';
+                    }, 2000);
+                }
+            } else {
+                showRecognitionStatus(recognitionData.message, 'error');
+            }
+        } catch (error) {
+            showMessage('Error submitting attendance: ' + error.message, 'error');
+        }
+    });
+
+    // Check if current time is within class time before allowing attendance
+    async function checkClassTime() {
+        try {
+            const response = await fetch('/api/tasks/');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error("Response wasn't JSON");
+            }
+
+            const tasks = await response.json();
+            
+            // Find the task for the current class
+            const currentClassTask = tasks.find(task => 
+                task.courseCode && task.courseCode.toLowerCase() === '{{ class_name|lower }}'
+            );
+
+            if (!currentClassTask) {
+                throw new Error('No schedule found for this class');
+            }
+
+            const now = new Date();
+            const classStart = new Date(currentClassTask.start_time);
+            const classEnd = new Date(currentClassTask.end_time);
+            
+            // Validate the dates
+            if (isNaN(classStart.getTime()) || isNaN(classEnd.getTime())) {
+                throw new Error('Invalid class time format');
+            }
+
+            if (now >= classStart && now <= classEnd) {
+                // Class is in session, enable camera
+                startCamera();
+                showMessage('Class is in session. You may mark attendance.', 'success');
+            } else {
+                // Outside class time, disable features
+                captureBtn.disabled = true;
+                if (now < classStart) {
+                    const startTime = classStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    showMessage(`Class starts at ${startTime}`, 'warning');
+                } else {
+                    showMessage('Class has already ended', 'warning');
+                }
+            }
+        } catch (error) {
+            console.error('Error checking class time:', error);
+            showMessage('Proceeding with attendance marking', 'info');
+            startCamera(); // Fallback to allow attendance marking
+        }
+    }
+
+    // Fetch and display events with time restrictions
+    async function fetchAndDisplayEvents() {
+        try {
+            const response = await fetch('/api/tasks/');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error("Response wasn't JSON");
+            }
+
+            const tasks = await response.json();
+            const today = new Date();
+            const currentDate = today.toISOString().split('T')[0];
+            
+            // Filter tasks for today and the current class
+            const todayEvents = tasks.filter(task => {
+                const taskDate = new Date(task.start_time).toISOString().split('T')[0];
+                return taskDate === currentDate && 
+                       task.courseCode && 
+                       task.courseCode.toLowerCase() === '{{ class_name|lower }}';
+            }).sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
+
+            const eventBoxes = document.querySelectorAll('.events .event-box');
+            
+            // Display up to 3 events
+            todayEvents.slice(0, 3).forEach((event, index) => {
+                if (eventBoxes[index]) {
+                    const eventName = eventBoxes[index].querySelector('.event-name');
+                    const eventTime = eventBoxes[index].querySelector('.event-time');
+                    const markAttendanceBtn = eventBoxes[index].querySelector('.mark-attendance-btn');
+                    const markAttendanceLink = eventBoxes[index].querySelector('.mark-attendance-btn-container');
+                    
+                    if (eventName) eventName.textContent = event.title || 'No Class during this time';
+                    
+                    if (eventTime) {
+                        const dateElement = eventTime.querySelector('p:first-child');
+                        const timeElement = eventTime.querySelector('p:last-child');
+                        
+                        if (dateElement) {
+                            dateElement.textContent = new Date(event.start_time).toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric' 
+                            });
+                        }
+                        
+                        if (timeElement) {
+                            const startTime = new Date(event.start_time).toLocaleTimeString('en-US', { 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                hour12: true 
+                            });
+                            const endTime = new Date(event.end_time).toLocaleTimeString('en-US', { 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                hour12: true 
+                            });
+                            timeElement.textContent = `${startTime} - ${endTime}` || 'No Time';
+                        }
+                    }
+
+                    if (markAttendanceBtn && markAttendanceLink) {
+                        const now = new Date();
+                        const classStart = new Date(event.start_time);
+                        const classEnd = new Date(event.end_time);
+                        
+                        if (now >= classStart && now <= classEnd) {
+                            markAttendanceBtn.disabled = false;
+                            markAttendanceBtn.textContent = 'Mark Attendance';
+                            markAttendanceBtn.style.backgroundColor = 'white';
+                            markAttendanceBtn.style.color = 'black';
+                            markAttendanceLink.href = `/mark-attendance/${event.title}/`;
+                        } else {
+                            markAttendanceBtn.disabled = true;
+                            if (now < classStart) {
+                                markAttendanceBtn.textContent = 'Class not started yet';
+                            } else {
+                                markAttendanceBtn.textContent = 'Class already ended';
+                            }
+                            markAttendanceBtn.style.backgroundColor = '#f0f0f0';
+                            markAttendanceBtn.style.color = '#888';
+                            markAttendanceLink.href = '#';
+                        }
+                    }
+                }
+            });
+
+            // Fill remaining boxes with "No class" message
+            for (let i = todayEvents.length; i < 3; i++) {
+                if (eventBoxes[i]) {
+                    const eventName = eventBoxes[i].querySelector('.event-name');
+                    const markAttendanceBtn = eventBoxes[i].querySelector('.mark-attendance-btn');
+                    if (eventName) eventName.textContent = 'No classes today';
+                    if (markAttendanceBtn) {
+                        markAttendanceBtn.disabled = true;
+                        markAttendanceBtn.textContent = 'No class to mark';
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            showMessage('Could not load class schedule', 'error');
+        }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            await Promise.all([checkClassTime(), fetchAndDisplayEvents()]);
+        } catch (error) {
+            console.error('Initialization error:', error);
+            showMessage('System ready with limited functionality', 'warning');
+            startCamera(); // Fallback to allow attendance marking
+        }
+    });
+</script>
+
+{% endblock %}

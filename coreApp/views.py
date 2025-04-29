@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Task, StudentProfile, Attendance
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Count, Case, When, IntegerField
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ import numpy as np
 import face_recognition
 from datetime import datetime
 import os
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -192,41 +194,47 @@ def MarkAttendance(request, class_name=None):
                     'message': 'No recognized profile found!'
                 })
 
-            # Get the unit and class names from either URL pattern or GET parameters
-            
+            # Get the class name
             class_name = class_name or request.GET.get('class_name')
-            
-                
             if not class_name:
                 return JsonResponse({
                     'status': 'error',
                     'message': 'No class name provided!'
                 })
 
-            # Get the current date and time
+            # Get current student
+            current_student = StudentProfile.objects.get(id=profile_id)
+            username_prefix = current_student.username.split('-')[0]
+
+            # Get all students with matching username prefix
+            matching_students = StudentProfile.objects.filter(
+                username__startswith=username_prefix + '-'
+            )
+
             current_date = datetime.now().date()
             current_time = datetime.now().time()
 
-            # Check if attendance already exists for today
-            existing_attendance = Attendance.objects.filter(
-                student_id=profile_id,
-                class_name=class_name,
-                date=current_date
-            ).first()
+            # Create attendance records for all matching students (default: absent)
+            for student in matching_students:
+                Attendance.objects.get_or_create(
+                    student=student,
+                    class_name=class_name,
+                    date=current_date,
+                    defaults={
+                        'status': 'absent',
+                        'time': None
+                    }
+                )
 
-            if existing_attendance:
-                return JsonResponse({
-                    'status': 'warning',
-                    'message': 'Attendance already marked for this class today!'
-                })
-
-            # Create new attendance record
-            Attendance.objects.create(
+            # Mark current student as present
+            Attendance.objects.update_or_create(
                 student_id=profile_id,
                 class_name=class_name,
                 date=current_date,
-                time=current_time,
-                status='present'
+                defaults={
+                    'status': 'present',
+                    'time': current_time
+                }
             )
 
             # Clear the session
@@ -238,13 +246,18 @@ def MarkAttendance(request, class_name=None):
                 'message': 'Attendance marked successfully!'
             })
 
+        except StudentProfile.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Student profile not found!'
+            })
         except Exception as e:
             return JsonResponse({
                 'status': 'error',
                 'message': f'Error marking attendance: {str(e)}'
             })
 
-    # For GET requests, render the template with unit and class names
+    # For GET requests, render the template with class name
     context = {
         'class_name': class_name if class_name else None
     }
@@ -351,15 +364,39 @@ def recognize_face(request):
 def myAttendance(request, username):
     # Get the student object or return 404 if not found
     student = get_object_or_404(StudentProfile, username=username)
-    
+
+
     # Filter attendance records for this student only
     attendance_records = Attendance.objects.filter(
         student=student
     ).order_by('-date', '-time')  # Newest records first
     
+      # Get counts of present and absent records
+    attendance_stats = attendance_records.aggregate(
+        total_present=Count(
+            Case(
+                When(status='present', then=1),
+                output_field=IntegerField()
+            )
+        ),
+        total_absent=Count(
+            Case(
+                When(status='absent', then=1),
+                output_field=IntegerField()
+            )
+        ),
+        # total_records=Count('id')  # Total records (optional)
+    )
+    # getting all total records
+    total_records = attendance_records.count()
+    attendance_percentage = ((attendance_stats['total_present'] + attendance_stats['total_absent']) / total_records) * 100
     context = {
         'student': student,
         'attendance_records': attendance_records,
+        'total_present': attendance_stats['total_present'],
+        'total_absent': attendance_stats['total_absent'],
+        'total_records': total_records,
+        'attendance_percentage': attendance_percentage,
     }
     return render(request, 'myAttendance.html', context)
 

@@ -53,16 +53,29 @@
     
             <section class="side-nav">
                 <div>
-                    <ul>
-                        <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
-                        <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
-                        <li><a href="{% url 'profile' user.username %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
-                        <li><a href="{% url 'myAttendance' user.username %}"><i class="fa-solid fa-people-roof"></i>My Attendance</a></li>
-                        <li><a href="{% url 'markAttendance' %}"><i class="fa-solid fa-people-roof"></i>Mark Attendance</a></li>
+                    
+                        
+                        
+                        
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                            <ul>
+                                <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
+                                <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
+                                <li><a href="{% url 'profile' user.username %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
+                                <li><a href="{% url 'markAttendance' %}"><i class="fa-solid fa-people-roof fa"></i>Mark Attendance</a></li>
+                                <li><a href="{% url 'myAttendance' user.username %}"><i class="fa-solid fa-people-roof"></i>My Attendance</a></li>
+                                <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>logout</a></li>
+                                
+
+                            </ul>
+                            {% else %}
+                                <ul>
+                                    <li><a href="{% url 'login' %}"><i class="fa-solid fa-right-from-bracket"></i>login</a></li>
+                                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
+                                    <li><a href="{% url 'markAttendance' %}"><i class="fa-solid fa-people-roof"></i>Mark Attendance</a></li>
+                                </ul>
                         {% endif %}
-                    </ul>
+                   
         
                 </div>
             </section>
