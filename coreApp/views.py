@@ -542,19 +542,16 @@ def update(request, username):
         updateStudent.email=request.POST.get('email')
         updateStudent.password=request.POST.get('password')
         updateStudent.ranking=request.POST.get('ranking')
+        # new_profile_photo = request.FILES.get('image')  # Use FILES for image uploads
 
-        new_profile_photo = request.FILES.get('image')  # Use FILES for image uploads
-
-        if new_profile_photo:
-            # If a new image is uploaded, update the field
-            updateStudent.image = new_profile_photo
-        else:
-            # If no new image is provided, keep the existing image
-            # This line isn't necessary unless you overwrite the field elsewhere
-            pass
+        # if new_profile_photo:
+        #     # If a new image is uploaded, update the field
+        #     updateStudent.image = new_profile_photo
+        # else:
+        #     # If no new image is provided, keep the existing image
+        #     # This line isn't necessary unless you overwrite the field elsewhere
+        #     pass
         updateStudent.save()
-
-
 
     context['updateStudent'] = updateStudent
     return render(request, 'admin/updateStudent.html', context)
