@@ -438,6 +438,7 @@ def createTask(request):
         start_time = request.POST.get('start_time')
         end_time = request.POST.get('end_time')
         courseCode = request.POST.get('courseCode')
+        location = request.POST.get('location')
 
         try:
             new_task = Task(
@@ -445,7 +446,8 @@ def createTask(request):
                 description=description,
                 start_time=start_time,
                 end_time=end_time,
-                courseCode=courseCode
+                courseCode=courseCode,
+                location=location,
             )
             new_task.save()
             messages.success(request, "Task Added Successfully")
