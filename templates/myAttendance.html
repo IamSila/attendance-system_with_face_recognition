@@ -57,6 +57,7 @@
             <button class="view-btn active" id="daily-btn">Daily View</button>
             <button class="view-btn" id="weekly-btn">Weekly View</button>
             <button class="view-btn" id="monthly-btn">Monthly View</button>
+            <button class="view-btn" id="semester-btn">Semester Progress</button>
         </div>
         
         <div class="date-navigation">
@@ -69,47 +70,55 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Student Reg No.</th>
-                        <th>Student Name</th>
                         <th>Class</th>
                         <th>Status</th>
+                        <th>Date</th>
                         <th>Time In</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in attendance_records %}
+                        
                     <tr>
-                        <td>S1001</td>
-                        <td>John Smith</td>
-                        <td>Grade 10-A</td>
-                        <td class="status-cell present">Present</td>
-                        <td>08:15 AM</td>
+                        
+                        <td>{{record.class_name}}</td>
+                        <td class="status-cell present">{{record.status}}</td>
+                        <td>{{record.date}}</td>
+                        <td>{{record.time}}</td>
+                   
                     </tr>
+
+                    {% endfor %}
+
                     <tr>
-                        <td>S1002</td>
-                        <td>Emily Johnson</td>
+                        <td>Dummy</td>
+                        <td>Dummy</td>
+                        <td>Dummy</td>
+                        <td>Dummy</td>
+                    </tr>
+
+                    <tr>
                         <td>Grade 10-A</td>
-                        <td class="status-cell present">Present</td>
+                        <td class="status-cell absent">Absent</td>
+                        <td>2/5/2025</td>
                         <td>08:05 AM</td>
                     </tr>
                     <tr>
-                        <td>S1003</td>
-                        <td>Michael Brown</td>
                         <td>Grade 10-A</td>
-                        <td class="status-cell late">Late</td>
+                        <td class="status-cell Present">Present</td>
+                        <td>2/5/2025</td>
                         <td>09:30 AM</td>
                     </tr>
                     <tr>
-                        <td>S1004</td>
-                        <td>Sarah Davis</td>
                         <td>Grade 10-A</td>
                         <td class="status-cell absent">Absent</td>
+                        <td>2/5/2025</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>S1005</td>
-                        <td>Robert Wilson</td>
                         <td>Grade 10-A</td>
                         <td class="status-cell present">Present</td>
+                        <td>2/5/2025</td>
                         <td>08:20 AM</td>
                     </tr>
                 </tbody>
@@ -120,8 +129,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
                         <th>Class</th>
                         <th>Mon</th>
                         <th>Tue</th>
@@ -132,56 +139,56 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for record in attendance_records %}
+                        
+                    
                     <tr>
-                        <td>S1001</td>
-                        <td>John Smith</td>
-                        <td>Grade 10-A</td>
+                        
+                        <td>{{record.class_name}}</td>
                         <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="late">L</td>
-                        <td class="present">P</td>
+                        <td class="present">-</td>
+                        <td class="present">-</td>
+                        <td class="late">-</td>
+                        <td class="present">-</td>
                         <td>4/5</td>
                     </tr>
+
+                    {% endfor %}
+
                     <tr>
-                        <td>S1002</td>
-                        <td>Emily Johnson</td>
-                        <td>Grade 10-A</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td>5/5</td>
+                        
+                        <td>DUMMY</td>
+                        <td class="present">DUMMY</td>
+                        <td class="present">DUMMY</td>
+                        <td class="present">DUMMY</td>
+                        <td class="present">DUMMY</td>
+                        <td class="present">DUMMY</td>
+                        <td>DUMMY</td>
                     </tr>
                     <tr>
-                        <td>S1003</td>
-                        <td>Michael Brown</td>
                         <td>Grade 10-A</td>
                         <td class="absent">A</td>
                         <td class="present">P</td>
-                        <td class="late">L</td>
+                        <td class="late">A</td>
                         <td class="present">P</td>
                         <td class="absent">A</td>
                         <td>2/5</td>
                     </tr>
                     <tr>
-                        <td>S1004</td>
-                        <td>Sarah Davis</td>
+                        
                         <td>Grade 10-A</td>
+                        <td class="present">-</td>
                         <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
-                        <td class="present">P</td>
+                        <td class="present">-</td>
+                        <td class="present">-</td>
+                        <td class="present">-</td>
                         <td>5/5</td>
                     </tr>
                     <tr>
-                        <td>S1005</td>
-                        <td>Robert Wilson</td>
+                        
                         <td>Grade 10-A</td>
                         <td class="present">P</td>
-                        <td class="late">L</td>
+                        <td class="late">A</td>
                         <td class="present">P</td>
                         <td class="present">P</td>
                         <td class="present">P</td>
@@ -254,6 +261,31 @@
             </table>
             
         </div>
+
+        <div id="semester-view" style="display: none;"">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Total Classes</th>
+                        <th>Present Classes</th>
+                        <th>Absent Classes</th>
+                        <th>Attendance percentage</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        
+                        <td>136</td>
+                        <td>132</td>
+                        <td>4</td>
+                        <td>84%</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
         <button class="btn-download">download</button>
     </div>
 
@@ -263,10 +295,12 @@
             const dailyBtn = document.getElementById('daily-btn');
             const weeklyBtn = document.getElementById('weekly-btn');
             const monthlyBtn = document.getElementById('monthly-btn');
+            const semesterBtn = document.getElementById('semester-btn');
             
             const dailyView = document.getElementById('daily-view');
             const weeklyView = document.getElementById('weekly-view');
             const monthlyView = document.getElementById('monthly-view');
+            const semesterView = document.getElementById('semester-view');
             
             const currentPeriod = document.getElementById('current-period');
             const prevBtn = document.getElementById('prev-btn');
@@ -297,6 +331,8 @@
                         year: 'numeric', 
                         month: 'long' 
                     });
+                }else if (currentView === 'semester') {
+                    
                 }
             }
             
@@ -313,6 +349,7 @@
                 dailyView.style.display = 'none';
                 weeklyView.style.display = 'none';
                 monthlyView.style.display = 'none';
+                semesterView.style.display = 'none';
                 
                 // Show selected view and activate its button
                 if (view === 'daily') {
@@ -324,6 +361,9 @@
                 } else if (view === 'monthly') {
                     monthlyView.style.display = 'block';
                     monthlyBtn.classList.add('active');
+                }else if (view === 'semester') {
+                    semesterView.style.display = 'block';
+                    semesterBtn.classList.add('active');
                 }
                 
                 updateDateDisplay();
@@ -420,6 +460,7 @@
             dailyBtn.addEventListener('click', () => changeView('daily'));
             weeklyBtn.addEventListener('click', () => changeView('weekly'));
             monthlyBtn.addEventListener('click', () => changeView('monthly'));
+            semesterBtn.addEventListener('click', () => changeView('semester'));
             
             // Event listeners for navigation
             prevBtn.addEventListener('click', () => navigate(-1));

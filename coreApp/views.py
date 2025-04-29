@@ -333,8 +333,20 @@ def recognize_face(request):
             'message': f'An error occurred: {str(e)}'
         })
 
-def myAttendance(request):
-    return render(request, 'myAttendance.html')
+def myAttendance(request, username):
+    # Get the student object or return 404 if not found
+    student = get_object_or_404(StudentProfile, username=username)
+    
+    # Filter attendance records for this student only
+    attendance_records = Attendance.objects.filter(
+        student=student
+    ).order_by('-date', '-time')  # Newest records first
+    
+    context = {
+        'student': student,
+        'attendance_records': attendance_records,
+    }
+    return render(request, 'myAttendance.html', context)
 
 
 
