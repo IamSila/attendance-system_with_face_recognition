@@ -23,7 +23,7 @@ class StudentProfile(models.Model):
     username = models.CharField(max_length=256, unique=True)
     course = models.CharField(max_length=200)
     phone = models.BigIntegerField(unique=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=False)
     password = models.CharField(max_length=256)
     
     # Optional fields - corrected middle_name field
@@ -38,7 +38,7 @@ class StudentProfile(models.Model):
     image = models.ImageField(upload_to='student_photos', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.username})"
+        return f"{self.first_name} {self.middle_name} {self.last_name} ({self.username})"
 
 
 # Model to store attendance records

@@ -157,12 +157,27 @@ def Dashboard(request):
     return render(request, 'dashboard.html', context)
 
 @login_required
-def Profile(request):
-    return render(request, 'profile.html')
+def Profile(request, username):
+    student = get_object_or_404(StudentProfile, username=username)
+    context = {}
+    context['student'] = student
+    return render(request, 'profile.html', context)
 
 @login_required
-def UpdateProfile(request):
-    return render(request, 'profileUpdate.html')
+def UpdateProfile(request, username):
+    student = get_object_or_404(StudentProfile, username=username)
+    context = {'student': student}
+
+    if request.method == "POST":
+        student.email = request.POST.get('email')
+        student.phone = request.POST.get('phone')
+        if (not student.email):
+            messages.error(request, "email must be provided")
+        elif (not student.phone):
+            messages.error(request, "Phone cannot be empty")
+        else:
+            student.save()
+    return render(request, 'profileUpdate.html', context)
 
 
 @login_required

@@ -9,15 +9,29 @@
 
 {% block content %}
 
-    <form action="" method="post" class="profile-container">
+    <form action="" method="POST" class="profile-container">
+        {% csrf_token %}
+        <div class="status">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <center><h2 style="color: firebrick;">{{message}}</h2></center>
+                    {% else %}
+                        <center><h2 style="color: green;">{{message}}</h2></center>
+                    {% endif %}
+        
+                {% endfor %}
+        
+            {% endif %}
+        </div>
         <div>
             <!-- Profile Header Section -->
             <div class="profile-header">
                 <h1>Edit Profile</h1>
                 <div class="profile-info">
                     <div class="profile-name">
-                        <h2>Sila Mulingi</h2>
-                        <p>Barchelor of Science (Computer Science)</p>
+                        <h2>{{student}}</h2>
+                        <p>{{student.course}}</p>
                         <p>Machakos</p>
                     </div>
                 </div>
@@ -32,32 +46,36 @@
                         <div class="info-label">Last Name</div>
                     </div>
                     <div class="info-row">
-                        <div class="info-value">Sila</div>
-                        <div class="info-value">Mulingi</div>
+                        <div class="info-value">{{student.first_name}}</div>
+                        <div class="info-value">{{student.last_name}}</div>
                     </div>
                 </div>
+
+
+               
+                    
     
                 <div class="info-group">
                     <div class="info-row">
                         <div class="info-label">Email address</div>
-                    <div class="info-label">Phone</div>
+                        <div class="info-label">Phone</div>
                     </div>
     
                     <div class="info-row">
-                        <div class="info-value"><input type="email" name="email" id="" placeholder="new email" class="input"></div>
-                        <div class="info-value"><input type="number" name="phone" id="" placeholder="New phone number"></div>
+                        <div class="info-value"><input type="email" name="email" id="" placeholder="{{student.email}}" class="input"></div>
+                        <div class="info-value"><input type="number" name="phone" id="" placeholder="{{student.phone}}"></div>
                     </div>
                 </div>
     
                 <!-- Bio Section -->
-                <div class="bio-section">
+                <!-- <div class="bio-section">
                     <div class="info-row">
                         <div class="info-label">Designation</div>
                     </div>
                     <div class="info-row">
                         <div class="info-value">Student</div>
                     </div>
-                </div>
+                </div> -->
             </div>
     
             
@@ -73,7 +91,7 @@
                     </div>
                     <div class="info-row">
                         <div class="info-value">Engineering and Technology</div>
-                        <div class="info-value">Computer Science</div>
+                        <div class="info-value">{{student.course}}</div>
                     </div>
                 </div>
     
@@ -83,7 +101,7 @@
                         <div class="info-label">Year of Study</div>
                     </div>
                     <div class="info-row">
-                        <div class="info-value">J17-0982-2020</div>
+                        <div class="info-value">{{student.username}}</div>
                         <div class="info-value">4</div>
                     </div>
                 </div>

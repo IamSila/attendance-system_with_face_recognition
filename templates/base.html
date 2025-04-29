@@ -56,7 +56,7 @@
                     <ul>
                         <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i></i>Dashboard</a></li>
                         <li><a href="{% url 'planning' %}"><i class="fa-regular fa-calendar"></i>My Planning</a></li>
-                        <li><a href="{% url 'profile' %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
+                        <li><a href="{% url 'profile' user.username %}"><i class="fa fa-fw fa-user"></i>Profile and Settings</a></li>
                         <li><a href="{% url 'myAttendance' user.username %}"><i class="fa-solid fa-people-roof"></i>My Attendance</a></li>
                         <li><a href="{% url 'markAttendance' %}"><i class="fa-solid fa-people-roof"></i>Mark Attendance</a></li>
                         {% if user.is_authenticated %}

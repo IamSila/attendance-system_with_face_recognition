@@ -5,13 +5,15 @@
 {% block content %}
    
     <div class="profile-container">
+            
+        
         <!-- Profile Header Section -->
         <div class="profile-header">
             <h1>My Profile</h1>
                 <div class="profile-info">
                     <div class="profile-name">
-                        <h2>Sila Mulingi</h2>
-                        <p>Barchelor of Science (Computer Science)</p>
+                        <h2>{{student}}</h2>
+                        <p>{{student.course}}</p>
                         <p>Machakos</p>
                     </div>
                 </div>
@@ -23,11 +25,13 @@
             <div class="info-group">
                 <div class="info-row">
                     <div class="info-label">First Name</div>
+                    <div class="info-label">Middle Name</div>
                     <div class="info-label right">Last Name</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-value">Sila</div>
-                    <div class="info-value">Mulingi</div>
+                    <div class="info-value">{{student.first_name}}</div>
+                    <div class="info-value">{{student.middle_name}}</div>
+                    <div class="info-value">{{student.last_name}}</div>
                 </div>
             </div>
 
@@ -38,12 +42,12 @@
                 </div>
 
                 <div class="info-row">
-                    <div class="info-value">silamulingi@gmail.com</div>
-                    <div class="info-value">0717486607</div>
+                    <div class="info-value">{{student.email}}</div>
+                    <div class="info-value">{{student.phone}}</div>
                 </div>
             </div>
 
-            <!-- Bio Section -->
+            <!-- Bio Section
             <div class="bio-section">
                 <div class="info-row">
                     <div class="info-label">Bio</div>
@@ -51,7 +55,7 @@
                 <div class="info-row">
                     <div class="info-value">Team Manager</div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         
@@ -77,14 +81,14 @@
                     <div class="info-label right">Year of Study</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-value">J17-0982-2020</div>
+                    <div class="info-value">{{student.username}}</div>
                     <div class="info-value">4</div>
                 </div>
             </div>
         </div>
 
         <!-- Edit Button -->
-        <a href="{% url 'profileUpdate' %}" style="text-decoration: none;"><button class="edit-button">Edit</button></a>
+        <a href="{% url 'profileUpdate' user.username %}" style="text-decoration: none;"><button class="edit-button">Edit</button></a>
     </div>
 
 {% endblock content %}
