@@ -4,6 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/markAttendance.css' %}">
     <style>
+        /* Your existing CSS styles remain exactly the same */
         .mark-attendance-btn {
             background-color: white;
             color: black;
@@ -205,10 +206,16 @@
             const today = new Date();
             const currentDate = today.toISOString().split('T')[0];
             
-            // Filter events for current date and class type
+            // Get username prefix (before hyphen)
+            const username = "{{ user.username }}";
+            const usernamePrefix = username.split('-')[0];
+            
+            // Filter events for current date, class type, and matching course code
             const todayClasses = events.filter(event => {
                 const eventDate = new Date(event.start_time || event.start).toISOString().split('T')[0];
-                return eventDate === currentDate && (event.task_type === 'Class' || event.courseCode);
+                const isClass = event.task_type === 'Class' || event.courseCode;
+                const courseCodeMatch = event.courseCode && event.courseCode.startsWith(usernamePrefix);
+                return eventDate === currentDate && isClass && courseCodeMatch;
             });
             
             // Update each event box with the fetched data
@@ -254,7 +261,7 @@
                             markAttendanceBtn.disabled = false;
                             markAttendanceBtn.textContent = 'Mark Attendance';
                             markAttendanceBtn.onclick = function() {
-                                return handleMarkAttendance(classInfo.courseCode || classInfo.title);
+                                return handleMarkAttendance(classInfo);
                             };
                             markAttendanceLink.href = "#markAttendance-section";
                         } else {
@@ -270,20 +277,20 @@
                 }
             });
 
-            // If no classes for today, show "No classes today" message
+            // If no matching classes for today, show appropriate message
             if (todayClasses.length === 0) {
                 eventBoxes.forEach(box => {
                     const eventName = box.querySelector('.event-name');
                     const markAttendanceBtn = box.querySelector('.mark-attendance-btn');
                     if (eventName) {
-                        eventName.textContent = 'No classes today';
+                        eventName.textContent = 'No matching classes today';
                     }
                     if (markAttendanceBtn) {
                         markAttendanceBtn.disabled = true;
                         markAttendanceBtn.textContent = 'No class to mark';
                     }
                 });
-                attendanceHeader.textContent = 'No classes today';
+                attendanceHeader.textContent = 'No matching classes today';
             } else {
                 // Set the first ongoing class as current (if any)
                 const now = new Date();
@@ -294,9 +301,9 @@
                 });
 
                 if (ongoingClass) {
-                    currentClass = ongoingClass.courseCode || ongoingClass.title;
+                    currentClass = ongoingClass.title || ongoingClass.courseCode;
                     attendanceHeader.textContent = `Mark Attendance for ${currentClass}`;
-                    form.action = `{% url 'markAttendance' %}?class_name=${currentClass}`;
+                    form.action = `{% url 'markAttendance' %}?class_name=${encodeURIComponent(currentClass)}`;
                 }
             }
         } catch (error) {
@@ -318,18 +325,19 @@
         }
     }
 
+    // Rest of your JavaScript code remains exactly the same
     // Handle mark attendance button click
-    async function handleMarkAttendance(classCode) {
+    async function handleMarkAttendance(classInfo) {
         try {
             // Check network connection first
             if (!navigator.onLine) {
                 throw new Error('No internet connection');
             }
 
-            // Set the current class
-            currentClass = classCode;
-            form.action = `{% url 'markAttendance' %}?class_name=${classCode}`;
-            attendanceHeader.textContent = `Mark Attendance for ${classCode}`;
+            // Set the current class using title if available, otherwise courseCode
+            currentClass = classInfo.title || classInfo.courseCode;
+            form.action = `{% url 'markAttendance' %}?class_name=${encodeURIComponent(currentClass)}`;
+            attendanceHeader.textContent = `Mark Attendance for ${currentClass}`;
 
             // Enable capture button
             captureBtn.disabled = false;

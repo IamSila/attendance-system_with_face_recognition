@@ -111,41 +111,41 @@
 
 <div class="events">
     <div class="event-box">
-        <h3 class="event-name">No class at this time</h3>
+        <h3 class="event-name">Loading class information...</h3>
         <div class="event-time">
-            <p></p>
-            <p></p>
+            <p class="event-date"></p>
+            <p class="event-time-range"></p>
         </div>
         <a href="#" class="mark-attendance-btn-container">
-            <button class="mark-attendance-btn" disabled>No class to mark</button>
+            <button class="mark-attendance-btn" disabled>Loading...</button>
         </a>
     </div>
 
     <div class="event-box">
-        <h3 class="event-name">No class at this time</h3>
+        <h3 class="event-name">Loading class information...</h3>
         <div class="event-time">
-            <p></p>
-            <p></p>
+            <p class="event-date"></p>
+            <p class="event-time-range"></p>
         </div>
         <a href="#" class="mark-attendance-btn-container">
-            <button class="mark-attendance-btn" disabled>No class to mark</button>
+            <button class="mark-attendance-btn" disabled>Loading...</button>
         </a>
     </div>
 
     <div class="event-box">
-        <h3 class="event-name">No class at this time</h3>
+        <h3 class="event-name">Loading class information...</h3>
         <div class="event-time">
-            <p></p>
-            <p></p>
+            <p class="event-date"></p>
+            <p class="event-time-range"></p>
         </div>
         <a href="#" class="mark-attendance-btn-container">
-            <button class="mark-attendance-btn" disabled>No class to mark</button>
+            <button class="mark-attendance-btn" disabled>Loading...</button>
         </a>
     </div>
 </div>
 
 <div class="markAttendance-section">
-    <h2>Mark Attendance for {{ class_name }}</h2>
+    <h2 id="attendance-header">Mark Attendance</h2>
     
     <div class="camera-container">
         <video id="video" autoplay playsinline></video>
@@ -164,10 +164,10 @@
     </div>
 
     <div class="button-group">
-        <button id="capture-btn" class="btn capture-btn">Capture Photo</button>
+        <button id="capture-btn" class="btn capture-btn" disabled>Capture Photo</button>
     </div>
 
-    <form id="attendance-form" method="POST" action="{% url 'markAttendance' %}?class_name={{ class_name }}" enctype="multipart/form-data">
+    <form id="attendance-form" method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="hidden" name="captured_image" id="captured_image">
     </form>
@@ -191,6 +191,161 @@
     const statusContainer = document.querySelector('.recognition-status');
     const statusText = document.getElementById('status-text');
     const previewContainer = document.querySelector('.preview-container');
+    const attendanceHeader = document.getElementById('attendance-header');
+    const eventBoxes = document.querySelectorAll('.event-box');
+    let currentClass = null;
+
+    // Function to update UI with today's classes
+    async function fetchAndDisplayEvents() {
+        try {
+            const response = await fetch('/api/tasks/');
+            const events = await response.json();
+            
+            // Get current date in YYYY-MM-DD format
+            const today = new Date();
+            const currentDate = today.toISOString().split('T')[0];
+            
+            // Filter events for current date and class type
+            const todayClasses = events.filter(event => {
+                const eventDate = new Date(event.start_time || event.start).toISOString().split('T')[0];
+                return eventDate === currentDate && (event.task_type === 'Class' || event.courseCode);
+            });
+            
+            // Update each event box with the fetched data
+            todayClasses.slice(0, 3).forEach((classInfo, index) => {
+                if (eventBoxes[index]) {
+                    const eventName = eventBoxes[index].querySelector('.event-name');
+                    const eventDate = eventBoxes[index].querySelector('.event-date');
+                    const eventTimeRange = eventBoxes[index].querySelector('.event-time-range');
+                    const markAttendanceBtn = eventBoxes[index].querySelector('.mark-attendance-btn');
+                    const markAttendanceLink = eventBoxes[index].querySelector('.mark-attendance-btn-container');
+                    
+                    if (eventName) {
+                        eventName.textContent = classInfo.title || classInfo.courseCode || 'Class';
+                    }
+                    
+                    if (eventDate && eventTimeRange) {
+                        const startDate = new Date(classInfo.start_time || classInfo.start);
+                        const endDate = new Date(classInfo.end_time || classInfo.end);
+                        
+                        eventDate.textContent = startDate.toLocaleDateString('en-US', { 
+                            weekday: 'short', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+                        
+                        eventTimeRange.textContent = `${startDate.toLocaleTimeString('en-US', { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                        })} - ${endDate.toLocaleTimeString('en-US', { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                        })}`;
+                    }
+
+                    // Update mark attendance button based on current time
+                    if (markAttendanceBtn && markAttendanceLink) {
+                        const now = new Date();
+                        const classStart = new Date(classInfo.start_time || classInfo.start);
+                        const classEnd = new Date(classInfo.end_time || classInfo.end);
+                        
+                        // Enable button only if current time is between class start and end times
+                        if (now >= classStart && now <= classEnd) {
+                            markAttendanceBtn.disabled = false;
+                            markAttendanceBtn.textContent = 'Mark Attendance';
+                            markAttendanceBtn.onclick = function() {
+                                return handleMarkAttendance(classInfo.courseCode || classInfo.title);
+                            };
+                            markAttendanceLink.href = "#markAttendance-section";
+                        } else {
+                            markAttendanceBtn.disabled = true;
+                            if (now < classStart) {
+                                markAttendanceBtn.textContent = 'Class not started yet';
+                            } else {
+                                markAttendanceBtn.textContent = 'Class already ended';
+                            }
+                            markAttendanceLink.href = "#";
+                        }
+                    }
+                }
+            });
+
+            // If no classes for today, show "No classes today" message
+            if (todayClasses.length === 0) {
+                eventBoxes.forEach(box => {
+                    const eventName = box.querySelector('.event-name');
+                    const markAttendanceBtn = box.querySelector('.mark-attendance-btn');
+                    if (eventName) {
+                        eventName.textContent = 'No classes today';
+                    }
+                    if (markAttendanceBtn) {
+                        markAttendanceBtn.disabled = true;
+                        markAttendanceBtn.textContent = 'No class to mark';
+                    }
+                });
+                attendanceHeader.textContent = 'No classes today';
+            } else {
+                // Set the first ongoing class as current (if any)
+                const now = new Date();
+                const ongoingClass = todayClasses.find(classInfo => {
+                    const classStart = new Date(classInfo.start_time || classInfo.start);
+                    const classEnd = new Date(classInfo.end_time || classInfo.end);
+                    return now >= classStart && now <= classEnd;
+                });
+
+                if (ongoingClass) {
+                    currentClass = ongoingClass.courseCode || ongoingClass.title;
+                    attendanceHeader.textContent = `Mark Attendance for ${currentClass}`;
+                    form.action = `{% url 'markAttendance' %}?class_name=${currentClass}`;
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            showMessage('Error loading class information', 'error');
+            
+            // Show error state in event boxes
+            eventBoxes.forEach(box => {
+                const eventName = box.querySelector('.event-name');
+                const markAttendanceBtn = box.querySelector('.mark-attendance-btn');
+                if (eventName) {
+                    eventName.textContent = 'Error loading classes';
+                }
+                if (markAttendanceBtn) {
+                    markAttendanceBtn.disabled = true;
+                    markAttendanceBtn.textContent = 'Try again later';
+                }
+            });
+        }
+    }
+
+    // Handle mark attendance button click
+    async function handleMarkAttendance(classCode) {
+        try {
+            // Check network connection first
+            if (!navigator.onLine) {
+                throw new Error('No internet connection');
+            }
+
+            // Set the current class
+            currentClass = classCode;
+            form.action = `{% url 'markAttendance' %}?class_name=${classCode}`;
+            attendanceHeader.textContent = `Mark Attendance for ${classCode}`;
+
+            // Enable capture button
+            captureBtn.disabled = false;
+            
+            // Start camera
+            await startCamera();
+            
+            showMessage('You may now capture your photo for attendance', 'success');
+            return false; // Prevent default link behavior
+        } catch (error) {
+            console.error('Error handling mark attendance:', error);
+            showMessage(`Error: ${error.message}. Please check your connection and try again.`, 'error');
+            captureBtn.disabled = true;
+            return false;
+        }
+    }
 
     // Function to show recognition status
     function showRecognitionStatus(message, type) {
@@ -211,8 +366,10 @@
         try {
             stream = await navigator.mediaDevices.getUserMedia({ video: true });
             video.srcObject = stream;
+            return true;
         } catch (err) {
             showMessage('Error accessing camera: ' + err.message, 'error');
+            throw err;
         }
     }
 
@@ -225,25 +382,41 @@
 
     // Capture photo
     captureBtn.addEventListener('click', () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        preview.src = canvas.toDataURL('image/jpeg');
-        previewContainer.style.display = 'block';
-        captureBtn.style.display = 'none';
-        stopCamera();
+        try {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            preview.src = canvas.toDataURL('image/jpeg');
+            previewContainer.style.display = 'block';
+            captureBtn.style.display = 'none';
+            stopCamera();
+        } catch (error) {
+            showMessage('Error capturing photo: ' + error.message, 'error');
+        }
     });
 
     // Retake photo
     retakeBtn.addEventListener('click', () => {
-        previewContainer.style.display = 'none';
-        captureBtn.style.display = 'block';
-        startCamera();
+        try {
+            previewContainer.style.display = 'none';
+            captureBtn.style.display = 'block';
+            startCamera();
+        } catch (error) {
+            showMessage('Error retaking photo: ' + error.message, 'error');
+        }
     });
 
     // Submit attendance
     submitBtn.addEventListener('click', async () => {
         try {
+            if (!navigator.onLine) {
+                throw new Error('No internet connection');
+            }
+
+            if (!currentClass) {
+                throw new Error('No class selected for attendance');
+            }
+
             // Convert canvas to blob
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
             const formData = new FormData();
@@ -257,6 +430,10 @@
                     'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                 }
             });
+
+            if (!recognitionResponse.ok) {
+                throw new Error('Network response was not ok');
+            }
 
             const recognitionData = await recognitionResponse.json();
             
@@ -272,6 +449,10 @@
                     }
                 });
 
+                if (!attendanceResponse.ok) {
+                    throw new Error('Attendance submission failed');
+                }
+
                 const attendanceData = await attendanceResponse.json();
                 showMessage(attendanceData.message, attendanceData.status);
 
@@ -284,181 +465,28 @@
                 showRecognitionStatus(recognitionData.message, 'error');
             }
         } catch (error) {
+            console.error('Error submitting attendance:', error);
             showMessage('Error submitting attendance: ' + error.message, 'error');
         }
     });
 
-    // Check if current time is within class time before allowing attendance
-    async function checkClassTime() {
-        try {
-            const response = await fetch('/api/tasks/');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error("Response wasn't JSON");
-            }
-
-            const tasks = await response.json();
-            
-            // Find the task for the current class
-            const currentClassTask = tasks.find(task => 
-                task.courseCode && task.courseCode.toLowerCase() === '{{ class_name|lower }}'
-            );
-
-            if (!currentClassTask) {
-                throw new Error('No schedule found for this class');
-            }
-
-            const now = new Date();
-            const classStart = new Date(currentClassTask.start_time);
-            const classEnd = new Date(currentClassTask.end_time);
-            
-            // Validate the dates
-            if (isNaN(classStart.getTime()) || isNaN(classEnd.getTime())) {
-                throw new Error('Invalid class time format');
-            }
-
-            if (now >= classStart && now <= classEnd) {
-                // Class is in session, enable camera
-                startCamera();
-                showMessage('Class is in session. You may mark attendance.', 'success');
-            } else {
-                // Outside class time, disable features
-                captureBtn.disabled = true;
-                if (now < classStart) {
-                    const startTime = classStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    showMessage(`Class starts at ${startTime}`, 'warning');
-                } else {
-                    showMessage('Class has already ended', 'warning');
-                }
-            }
-        } catch (error) {
-            console.error('Error checking class time:', error);
-            showMessage('Proceeding with attendance marking', 'info');
-            startCamera(); // Fallback to allow attendance marking
-        }
-    }
-
-    // Fetch and display events with time restrictions
-    async function fetchAndDisplayEvents() {
-        try {
-            const response = await fetch('/api/tasks/');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error("Response wasn't JSON");
-            }
-
-            const tasks = await response.json();
-            const today = new Date();
-            const currentDate = today.toISOString().split('T')[0];
-            
-            // Filter tasks for today and the current class
-            const todayEvents = tasks.filter(task => {
-                const taskDate = new Date(task.start_time).toISOString().split('T')[0];
-                return taskDate === currentDate && 
-                       task.courseCode && 
-                       task.courseCode.toLowerCase() === '{{ class_name|lower }}';
-            }).sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
-
-            const eventBoxes = document.querySelectorAll('.events .event-box');
-            
-            // Display up to 3 events
-            todayEvents.slice(0, 3).forEach((event, index) => {
-                if (eventBoxes[index]) {
-                    const eventName = eventBoxes[index].querySelector('.event-name');
-                    const eventTime = eventBoxes[index].querySelector('.event-time');
-                    const markAttendanceBtn = eventBoxes[index].querySelector('.mark-attendance-btn');
-                    const markAttendanceLink = eventBoxes[index].querySelector('.mark-attendance-btn-container');
-                    
-                    if (eventName) eventName.textContent = event.title || 'No Class during this time';
-                    
-                    if (eventTime) {
-                        const dateElement = eventTime.querySelector('p:first-child');
-                        const timeElement = eventTime.querySelector('p:last-child');
-                        
-                        if (dateElement) {
-                            dateElement.textContent = new Date(event.start_time).toLocaleDateString('en-US', { 
-                                month: 'short', 
-                                day: 'numeric' 
-                            });
-                        }
-                        
-                        if (timeElement) {
-                            const startTime = new Date(event.start_time).toLocaleTimeString('en-US', { 
-                                hour: '2-digit', 
-                                minute: '2-digit', 
-                                hour12: true 
-                            });
-                            const endTime = new Date(event.end_time).toLocaleTimeString('en-US', { 
-                                hour: '2-digit', 
-                                minute: '2-digit', 
-                                hour12: true 
-                            });
-                            timeElement.textContent = `${startTime} - ${endTime}` || 'No Time';
-                        }
-                    }
-
-                    if (markAttendanceBtn && markAttendanceLink) {
-                        const now = new Date();
-                        const classStart = new Date(event.start_time);
-                        const classEnd = new Date(event.end_time);
-                        
-                        if (now >= classStart && now <= classEnd) {
-                            markAttendanceBtn.disabled = false;
-                            markAttendanceBtn.textContent = 'Mark Attendance';
-                            markAttendanceBtn.style.backgroundColor = 'white';
-                            markAttendanceBtn.style.color = 'black';
-                            markAttendanceLink.href = `/mark-attendance/${event.title}/`;
-                        } else {
-                            markAttendanceBtn.disabled = true;
-                            if (now < classStart) {
-                                markAttendanceBtn.textContent = 'Class not started yet';
-                            } else {
-                                markAttendanceBtn.textContent = 'Class already ended';
-                            }
-                            markAttendanceBtn.style.backgroundColor = '#f0f0f0';
-                            markAttendanceBtn.style.color = '#888';
-                            markAttendanceLink.href = '#';
-                        }
-                    }
-                }
-            });
-
-            // Fill remaining boxes with "No class" message
-            for (let i = todayEvents.length; i < 3; i++) {
-                if (eventBoxes[i]) {
-                    const eventName = eventBoxes[i].querySelector('.event-name');
-                    const markAttendanceBtn = eventBoxes[i].querySelector('.mark-attendance-btn');
-                    if (eventName) eventName.textContent = 'No classes today';
-                    if (markAttendanceBtn) {
-                        markAttendanceBtn.disabled = true;
-                        markAttendanceBtn.textContent = 'No class to mark';
-                    }
-                }
-            }
-        } catch (error) {
-            console.error('Error fetching events:', error);
-            showMessage('Could not load class schedule', 'error');
-        }
-    }
-
     // Initialize page
     document.addEventListener('DOMContentLoaded', async () => {
         try {
-            await Promise.all([checkClassTime(), fetchAndDisplayEvents()]);
+            // Initial setup
+            captureBtn.disabled = true;
+            
+            // Check network status
+            if (!navigator.onLine) {
+                showMessage('You are offline. Some features may not work.', 'warning');
+            }
+
+            // Fetch and display today's classes
+            await fetchAndDisplayEvents();
+
         } catch (error) {
             console.error('Initialization error:', error);
             showMessage('System ready with limited functionality', 'warning');
-            startCamera(); // Fallback to allow attendance marking
         }
     });
 </script>

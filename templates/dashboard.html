@@ -329,10 +329,16 @@
                 const today = new Date();
                 const currentDate = today.toISOString().split('T')[0];
                 
-                // Filter events for current date
+                // Get username prefix (before hyphen)
+                const username = "{{ user.username }}";
+                const usernamePrefix = username.split('-')[0];
+                
+                // Filter events for current date and matching course code
                 const todayEvents = events.filter(event => {
                     const eventDate = new Date(event.start).toISOString().split('T')[0];
-                    return eventDate === currentDate;
+                    // Check if event has courseCode and it matches username prefix
+                    const courseCodeMatch = event.courseCode && event.courseCode.startsWith(usernamePrefix);
+                    return eventDate === currentDate && courseCodeMatch;
                 });
                 
                 // Get all event boxes
@@ -393,13 +399,13 @@
                     }
                 });
 
-                // If no events for today, show "No classes today" message
+                // If no matching events for today, show default message
                 if (todayEvents.length === 0) {
                     eventBoxes.forEach(box => {
                         const eventName = box.querySelector('.event-name');
                         const markAttendanceBtn = box.querySelector('.mark-attendance-btn');
                         if (eventName) {
-                            eventName.textContent = 'No classes today';
+                            eventName.textContent = 'No matching classes today';
                         }
                         if (markAttendanceBtn) {
                             markAttendanceBtn.disabled = true;
