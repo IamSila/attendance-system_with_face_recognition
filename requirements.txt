@@ -1,6 +1,7 @@
 asgiref>=3.8.0,<4.0
 Django>=4.2,<5.1
 sqlparse>=0.4.4,<0.6
+numpy
 pytz>=2024.1
 tzdata>=2024.1
 typing_extensions>=4.8.0
@@ -13,3 +14,5 @@ Pillow>=10.0.0,<11.0
 django-crispy-forms>=2.0,<3.0
 django-filter>=23.0,<25.0
 django-timezone-field>=6.0,<7.0
+git+https://github.com/ageitgey/face_recognition_models
+git+https://github.com/ageitgey/face_recognition_models
